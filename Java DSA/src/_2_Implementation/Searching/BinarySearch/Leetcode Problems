@@ -1,0 +1,106 @@
+Q1. Find Smallest Letter Greater Than Target
+SOL:
+        Approach: O(logN)
+        Simple Binary Search, remove equal to case and use the ceil logic.
+        If letter does not exist, start pointer has still reached the end and first letter needs to be returned.
+        For wrap around cases when start reaches end, use % in the logic to return first letter even when start
+        exceeds index.
+
+Q2. Find First and Last Position of Element in Sorted Array
+SOL:
+        Approach: O(logN)
+        Use Binary Search two times, once for the starting index and then again for end index.
+        Position start and end pointer as per the requirement of the index you want to find in
+        the case when found element on mid is equal to the target.
+        Do not forget to store value at mid index in another variable as it can be a possible
+        answer, start and end pointers here are just for positioning and loop breaking.
+
+Q3. Peak Index in Mountain Array
+SOL:
+        Mountain Array (Bitonic Array): eg: [2, 3, 5, 2, 0] (where 5 is peak element and 2 is peak index)
+
+        Approach: O(logN)
+        First check if the mid is the peak element
+        If not, recognize in which half of the array the mid falls in and then adjust start and
+        end pointer accordingly.
+        When element at mid satisfies conditions for peak element, return mid.
+        Note: Do not use mid - 1 while checking conditions.
+
+Q4. Find in Mountain Array
+SOL:
+        Aim is to find minimum index for a target.
+        e.g: [2, 3, 5, 2, 0], if target = 2, minimum index = 0.
+
+        Approach: O(logN)
+        First find index of Peak Element using previous approach.
+        Then apply ascending sort binary search for 0 to peak index.
+        If element not found apply descending sort binary search for peak index + 1 to arr.length - 1.
+        If still not found return -1
+
+Q5. Search in Rotated Sorted Array
+SOL:
+        (All numbers are unique)
+        Example of rotated sorted array:
+        Sorted Array: [1, 2, 3, 4, 5, 6, 7]
+        Rotated four times: [4, 5, 6, 7, 1, 2, 3]
+
+        Approach: O(logN)
+        Very similar to previous problem.
+        By looking carefully we see that it is now divided into two ascending sorted array with pivot in the middle.
+        The pivot is the max element while the element next to pivot is the smallest.
+        We can find the index of any of the two and apply separate binary searches on both parts.
+        The trick is to always compare the mid element with the first or last element of the array.
+        If we take first element, we check whether it is smaller or greater than first element and adjust start & end.
+        Just make sure that the increment/decrement/assignment to start or end does not exceed array bounds and also
+        which pointer will always point to required element in every case.
+        (e.g: for (start = mid + 1) & (end = mid), end will point to minimum element in all cases and can be returned)
+
+        Explore: Try to solve this when array contains duplicate values.
+        Solved: (Approach: Comparing mid to end element and finding the minimum value's index)
+                With a few tweaks like (start < end) and if(arr[mid] <= arr[end]) in the conditions the algorithm works
+                for duplicate values too.
+                So instead of stopping the loop when start > end, we stop even when they point at the same index.
+                This allows arr[mid] <= arr[end] as after adding this condition, start and end will never be different
+                from each other when they reach the target element.
+
+Q6. Split Array Largest Sum
+SOL:
+    Sub-array: Contiguous part of an array
+    Example: Array - [72, 81, 99, 22, 70, 88, 91],
+             Sub-array(s) - [72], [81], [99], [22], [70], [88], [91]  | No. of Pieces = length of array
+                            [72, 81], [99, 22, 70, 88, 91] |
+                            [72, 81, 99], [22, 70, 88, 91] |--> No. of Pieces = 2
+                            [72, 81, 99, 22], [70, 88, 91] |
+                            [72, 81], [99, 22], [70, 88, 91] |
+                            [72, 81, 99], [22], [70, 88, 91] |--> No. of Pieces = 3
+                            [72], [81, 99, 22, 70], [88, 91] |
+                            and more... when No. of Pieces = 1, it is the whole array itself
+             Not Sub-array(s) - [72, 99, 70], [22, 88, 91], [81, 70] are not sub-arrays as the elements
+                                though in sequence, are not contiguous, these can be considered as
+                                subsequences instead.
+    Aim is to minimize the largest sum, where sum is the addition of all elements of sub-arrays resulting from
+    a split in the main array. Number of sub-arrays required = k, where 1 <= k <= min(50, arr.length)
+    All integers in array are positive
+
+    Brute Force Approach: (Time Limit Exceeded)
+    Find all possible sub-arrays resulting from all possible splits at different positions in the sub array,
+    calculate the largest sum for each split and return the minimum of those largest sums.
+
+    Binary Search Approach:
+    First find the minimum and maximum sum that can be generated from the array
+    Sum with 1 Piece (Array Intact) = Sum of all elements of array = Highest Sum
+    Sum with arr.length pieces (all elements have their own array) = Maximum element of the array = Lowest Sum
+    Now every possible largest sum will lie between the range: [Lowest Sum, Highest Sum]
+
+    After this we apply binary search taking start = Lowest Sum and end = Highest Sum.
+    Then inside the binary search loop we traverse the array and create possible sub arrays which add up to mid.
+    If the resulting addition exceeds mid, we count pieces = pieces + 1 (sub-array detected), (pieces will be
+    reset to 1 once a traversal in the array finishes)
+
+    Now, according to the number of pieces being more or less than k, we adjust our start and end pointers.
+    If pieces are more than or equal to required, start = mid + 1
+    If pieces are less than required, end = mid - 1
+    Eventually singling out the required minimized largest sum for k sub-arrays.
+
+    The loop finishes when start becomes equal to end and we return either of the two as answer.
+    (Quite frankly I still haven't fully understood the approach yet but have an idea of how it works.)
