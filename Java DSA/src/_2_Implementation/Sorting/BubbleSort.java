@@ -15,7 +15,7 @@ public class BubbleSort { // Also known as Sinking Sort/ Exchange Sort.
         Best Case: O(N) (j never swaps for any value means array is sorted)
         Worst Case: O(N^2)
 
-        Space Complexity: O(1) ... (in-place sorting algorithm)
+        Space Complexity: O(1) ... (in-place sorting algorithm) (no new array created)
      */
     public static void main(String[] args) {
         int[] arr1 = {1, 2, 3, 4, 5}, arr2 = {1, 2, 3, 4, 5}, arr3 = {5, 4, 3, 2, 1}, arr4 = {5, 4, 3, 2, 1};
