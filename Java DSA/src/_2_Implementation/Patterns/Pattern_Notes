@@ -1,0 +1,39 @@
+
+Note: Patterns solved in this folder can be solved in assignments folder again too. (practice)
+
+Importance of Pattern Questions:
+     Enhances Thought Process
+     Very Important for building foundation
+
+How we can solve Patterns?
+    Things may look different but there are similarities
+    Few steps are needed to be kept in mind while starting to solve
+
+Pre-requisites:
+    Conditionals
+    Loops
+
+Approach:
+    Imagine 2D Arrays
+    Run outer for-loop based on the number of horizontal lines required (rows)
+    Inner for-loops based on the number of vertical lines required (columns)
+
+Steps:
+    Identify for every row -
+       1. How many columns are there
+       2. Types of elements in col
+    What do you need to print?
+    Try to find the formula relating rows and columns
+
+    Whenever, the pattern is of number printing, try not to use zero index
+    by doing this, we can directly make use of numbers easily when required.
+
+    For complex patterns, they can be divided into parts.
+    Mostly very complex patterns can be divide into four different parts and
+    then we adjust interval values and print values according to the conditions
+    in each part.
+
+    In some cases there are simple solutions to the problems but those solutions
+    are very counter-intuitive. For such problems it is necessary to see, understand
+    and remember the solution for future use.
+    PRACTICE is Key.

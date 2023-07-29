@@ -18,6 +18,7 @@ public class StableUnstableSort {
      1. Bubble Sort - The original color wise order is preserved, thus the sorting is STABLE
      2. Selection Sort - The original color wise order is NOT preserved, thus the sorting is UNSTABLE
      3. Insertion Sort - The original color wise order is preserved, thus sorting is STABLE
+
      */
     public static void main(String[] args) {
         // Demonstrating Stable/Unstable by using integer sorting for double datatype array.

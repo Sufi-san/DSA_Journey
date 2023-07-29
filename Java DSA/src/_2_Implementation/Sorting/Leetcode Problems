@@ -1,0 +1,60 @@
+(Note to Self: Be careful while making the swap function, always assign 'temp' to the first variable at the end !!)
+
+Q1. Missing Number:
+SOL:
+        Approach: O(N)
+        Use Cyclic Sort on the array. As the range in array is (0, n) we know arr[index] = index.
+        Using this, we sort the array and then perform a linear search to return the array index which
+        does not contain expected element.
+        The swapping for sort is performed only when an element does not match its index and the correct
+        index is not out of array bounds.
+        Else we just increment index to check next element
+
+Q2. Find All Numbers Disappeared in Array:
+SOL:
+        Approach: O(N)
+        The approach stays the same except, the range is (1, n) so correct index = arr[index] - 1 and this time
+        there is no chance of correct index being out of bounds.
+        As few numbers are missing and the array length is still 'n', there are multiple duplicate elements in
+        the array. However, we do not need to pay heed to them and simply apply cyclic sort as even if we
+        encounter duplicates and one duplicate already being correctly place, we will just ignore the current one.
+        Thus, all other elements except the duplicates will get sorted and those indexes which contain the
+        duplicates are the ones whose correct element has disappeared.
+        We then simply apply linear search and return index + 1 for all indices not having their correct element.
+
+Q3. Find the Duplicate Number:
+SOL:
+        By not being able to modify the array, the question means we cannot modify the elements
+        However, we can still apply sorting
+
+        Approach: O(N)
+        Cyclic Sort will be applied exactly same as the above problem.
+        In this problem, as there is only one duplicate, all the elements except the duplicate will get sorted.
+        Thus, this will make the duplicate swap to the last index of the array as its correct index is already
+        full.
+        We then simply return the element at index = arr.length - 1
+
+Q4. Find All Duplicates in an Array
+SOL:
+        Approach: O(N)
+        The question can potentially misguide us to sort the array in an ascending order including ALL elements
+        i.e. also including the duplicates.
+        However, we just need to apply simple cyclic sort for 1 to N while ignoring duplicates
+        After that we run a linear search and for those indices which still do not have their correct elements,
+        we return the elements at those indices, thereby finding each and all of the duplicates.
+
+Q5. Set Mismatch
+SOL:
+        Approach: O(N)
+        In this problem we apply cyclic sort and return both the duplicate number and its index + 1
+
+Q6. First Missing Positive
+SOL:
+        Approach: O(N)
+        The smallest positive integer is 1, thus we ignore all negatives and zeros.
+        The interval in the array not beginning from 1 will have the possibility of the correct index being
+        out of bounds, thus we ignore all of such elements and then perform cyclic sort.
+        As the array is now sorted 1 to n, for the first index which does not have the correct element,
+        we return index + 1.
+        In case there are no missing elements inside the array, we consider the element that should have
+        appeared if the array was one size longer. (arr[arr.length - 1] + 1)
