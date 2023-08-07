@@ -1,0 +1,65 @@
+Working of Recursion:
+    The function keeps calling itself with probably a different parameter or the same parameter,
+    but when some condition holds true, the calling has to stop to prevent infinite calling.
+    This case is known as the base case. (Base Condition)
+
+    If a function gets called again and again, it can be treated as a separate function occupying
+    the stack memory even though it is the same function.
+
+    Thus, if there was no base condition, there was a chance of stack memory getting exhausted due
+    to endless repetitive calling eventually leading to 'STACK OVERFLOW'.
+
+Why Recursion?:
+    1. It helps in solving bigger complex problems in a simple way. (fewer lines of code)
+    2. Recursive solutions can get converted to iterations and vice versa.
+               Directly solving in iterative terms is sometimes difficult, thus we
+               can first solve the problem recursively and the optimise it later by
+               using iteration. (Stacks & Queues are involved in the conversion procedure.)
+    3. Bigger problems are broken down into smaller problems.
+
+Space Complexity in Recursion: (In short)
+As each function call takes some memory, the space complexity is NOT constant.
+
+Points to be noted:
+    Try to use pen & paper whenever solving complex problem involving recursion.
+    Always try to visualise the steps involved. (Creates a sort of TREE) Recursive Tree.
+
+How to determine whether a problem can be solved using recursion and how is it solved? (Best Approach
+    If the problem can be broken down into smaller repetitive problems.
+    The smaller repetitive problem expression written is the formulaic form of recursion, also called 'Recurrence Relation'.
+    For these Recurrence Relations, we always know of the base case, the solution of which always stays the same.
+    (e.g Fibonacci of 1 is always 1 and 0 is always 0 and these can be treated as base cases.)
+    Write/Derive the Recurrence Relation if necessary.
+    Draw the Recursive Tree.
+    About Recursive Tree:
+        See the flow of functions, how they are getting in stack.
+        Identify and focus on left tree calls and right tree calls (what is written in the formula first)
+        Draw the tree and pointers again and again using pen & paper (pointer = when function starts executing)
+        Use a Debugger to see the flow.
+    See how the values are returned and what type of values (int, string etc.) are returned at each step
+    See where the function call will come out of, in the end we come out of main function.
+
+Tail Recursion:
+    If there are no extra steps in the last statement (last line of code) then that particular recursive function
+    is said to be performing Tail Recursion.
+    However, if there are extra steps involved in the last statement (like add/subt/mult/div or call one more function)
+    before returning value, then it is NOT Tail Recursion.
+    Easier way to explain would be, the function that recursively called itself, does not have anything else to
+    do after the value is returned i.e. getting the return value is the last part of it.
+
+Two Key Areas of Focus !!:
+    1. Function calling
+    2. Variables & Data-types
+
+Working with variables in Recursion:
+  1. Argument
+  2. Return Type
+  3. Body of Function
+
+Types of Recurrence Relation:
+  1. Linear Recurrence Relation (e.g Fibonacci Series) (Linear reduction)
+  2. Divide & Conquer Recurrence Relation (e.g Binary Search) (Search space reduced by a factor)
+
+Most Important Tip: DO NOT OVERTHINK !
+    You can Overthink to understand how the problem is getting solved but, only after the problem is solved.
+

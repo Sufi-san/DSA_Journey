@@ -14,7 +14,7 @@ public class InsertionSort {
     /*
         Time Complexity:
         Best Case:
-         O(N^2) (without optimisation)
+         O(N^2) (without optimisation)(i.e. without adding break statement in case of false condition)
          O(N) (with optimisation)(All elements are in ascending/descending order as per requirement)
         Worst Case: O(N^2)
 

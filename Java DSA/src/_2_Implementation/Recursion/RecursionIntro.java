@@ -20,8 +20,10 @@ public class RecursionIntro {
         After main() function is called.
         1. While the function does not finish executing, it will remain in stack.
            Thus, main function stays inside the stack for the whole program execution.
-           Whenever more functions are called inside any function, they are also added
+        2. Whenever more functions are called inside any function, they are also added
            on top of each other in stack memory based on order of execution.
+        3. When a function finishes executing it is removed from the stack and the flow
+           of the program is restored to where the function was called.
      */
     public static void main(String[] args) {
         // write a function that prints hello world.
