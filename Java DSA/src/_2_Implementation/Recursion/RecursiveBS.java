@@ -12,8 +12,8 @@ public class RecursiveBS {
 
     // My Approach:
     static int recursiveBS(int[] arr, int start, int end, int target){
-        int mid = start + (end - start) / 2;
         if(start <= end){
+            int mid = start + (end - start) / 2;
             if(target > arr[mid]) return recursiveBS(arr, mid + 1, end, target);
             else if(target < arr[mid]) return recursiveBS(arr, start, mid - 1, target);
             else return mid;

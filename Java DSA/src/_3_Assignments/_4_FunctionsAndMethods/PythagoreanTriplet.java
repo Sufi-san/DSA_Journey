@@ -5,7 +5,7 @@ public class PythagoreanTriplet {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int num1, num2, num3;
-        System.out.println("Enter three positive integers in increasing order of value to check for Pythagorean triplets:");
+        System.out.println("Enter three positive integers to check for Pythagorean triplets:");
         System.out.println("Integer 1: ");
         num1 = in.nextInt();
         System.out.println("Integer 2: ");
@@ -19,6 +19,14 @@ public class PythagoreanTriplet {
     }
 
     static boolean isPythaTriplet(int num1, int num2, int num3){
-        return (Math.pow(num1, 2) + Math.pow(num2, 2) == Math.pow(num3, 2));
+        int maxNum = Math.max(Math.max(num1, num2), num3);
+        int a = num1, b = num2;
+        if(maxNum == num2){
+            b = num3;
+        }
+        else if(maxNum == num1){
+            a = num3;
+        }
+        return (Math.pow(a, 2) + Math.pow(b, 2) == Math.pow(maxNum, 2));
     }
 }

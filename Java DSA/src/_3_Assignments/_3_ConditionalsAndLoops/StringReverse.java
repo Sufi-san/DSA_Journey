@@ -8,7 +8,21 @@ public class StringReverse {
         System.out.println("Enter the String to be reversed: ");
         String str = in.nextLine();
         StringBuilder strBuilder = new StringBuilder(str);
-        str = strBuilder.reverse().toString();
-        System.out.println("Reversed String: "+str);
+        System.out.println("Reversed String: "+strBuilder.reverse());
+        System.out.println("Using Two Pointer method: "+strReverse(str));
+    }
+
+    static String strReverse(String str){
+        StringBuilder strBuilder = new StringBuilder(str);
+        int start = 0, end = str.length() - 1;
+        while(start < end){
+            char temp = strBuilder.charAt(start);
+            strBuilder.setCharAt(start, strBuilder.charAt(end));
+            strBuilder.setCharAt(end, temp);
+            start++;
+            end--;
+        }
+        return new String(strBuilder);  // another way to convert any object to String using String() constructor
+        // What I mostly use is strBuilder.toString()
     }
 }

@@ -116,6 +116,7 @@ public class Solved_Patterns {
         }
     }
 
+
     static void pattern7(int n){
         for(int i = 1; i <= 2 * n - 1; i++){
             int limit = (i > n)? i - n: n - i;

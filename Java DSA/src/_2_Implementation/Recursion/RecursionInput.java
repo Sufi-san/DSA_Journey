@@ -1,11 +1,11 @@
-package _3_Assignments._5_Arrays;
+package _2_Implementation.Recursion;
 import java.util.Scanner;
 import java.util.Arrays;
 
 public class RecursionInput {
     public static void main(String[] args) {
         int[] arr = new int[3];
-        arr = takeInput(arr, 0);
+        takeInput(arr, 0);
         System.out.println(Arrays.toString(arr));
     }
 
@@ -15,7 +15,6 @@ public class RecursionInput {
             arr[index] = in.nextInt();
             return takeInput(arr, index + 1);
         }
-        else
-            return arr;
+        return arr;
     }
 }

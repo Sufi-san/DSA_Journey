@@ -1,7 +1,12 @@
 package _3_Assignments._1_FlowchartPseudocode;
 import java.util.Scanner;
 public class Simple_HCF_LCM {
-    /* Logic: Divide the divisor by the remainder, till obtained remainder is equal to zero.
+    /*
+        One approach would be to find all the factors for both numbers and then check whether the highest number
+        a common factor to both.
+     */
+    /* Better Approach:
+        Logic: Divide the divisor by the remainder, till obtained remainder is equal to zero.
         On each iteration of loop,
         Dividend = Divisor,
         Divisor = Remainder

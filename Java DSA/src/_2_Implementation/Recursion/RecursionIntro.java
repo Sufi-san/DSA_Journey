@@ -28,14 +28,14 @@ public class RecursionIntro {
     public static void main(String[] args) {
         // write a function that prints hello world.
         Scanner in = new Scanner(System.in);
-//        System.out.println("How many times to print greeting?: ");
-//        int times = in.nextInt();
-//        System.out.println("\nPrinting using a loop: ");
-//        for(int i = times; i > 0; i--){
-//            greet();
-//        }
-//        System.out.println("\nPrinting using recursion: ");
-//        greet(times);
+        System.out.println("How many times to print greeting?: ");
+        int times = in.nextInt();
+        System.out.println("\nPrinting using a loop: ");
+        for(int i = times; i > 0; i--){
+            greet();
+        }
+        System.out.println("\nPrinting using recursion: ");
+        greet(times);
 
         // Numbers Example:
         // write a function that takes in a number and prints it
@@ -48,9 +48,9 @@ public class RecursionIntro {
     }
 
     static void greet(int count){
+        System.out.println("Hello World");
+        count--;
         if (count > 0) {
-            System.out.println("Hello World");
-            count--;
             greet(count);
         }
     }

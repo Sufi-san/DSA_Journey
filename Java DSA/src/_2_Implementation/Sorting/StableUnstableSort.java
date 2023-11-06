@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class StableUnstableSort {
     /*
-     For a given sequence, if original order is maintained for identical values,
+     For a given sequence, if original order is maintained for identical values that differ by some criteria,
      Then the sorting is STABLE
      If not, then the sorting is UNSTABLE
 

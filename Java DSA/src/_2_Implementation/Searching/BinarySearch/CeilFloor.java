@@ -41,6 +41,7 @@ public class CeilFloor {
         int start = 0;
         int end = arr.length - 1;
         boolean isAsc = arr[start] < arr[end];
+        // Below conditions check whether the target is within range.
         if(isAsc && (target > arr[end] || target < arr[start])) return -1;
         else if(target < arr[end] || target > arr[start]) return -1;
 
@@ -54,7 +55,7 @@ public class CeilFloor {
                 if(isAsc) start = mid;
                 else end = mid;
             }
-            else return arr[mid];
+            else return arr[mid]; // In case we find element equal to target.
         }
        if(isAsc) return (findCeil)? arr[end]: arr[start];
        else return (findCeil)? arr[start]: arr[end];
@@ -72,7 +73,7 @@ public class CeilFloor {
         Now using above example, let's say, start pointer will reach 14 first and then
         end pointer will also reach 14 after start. Let the same index be 'k'.
         The mid now will be: mid = (start + end)/2 = (k + k)/2 = k, thus same index is returned.
-        Next condition that will hold true: arr[mid] < target, as 14 < 15
+        Next condition that will hold true: arr[mid] < target, as 14 < 15, and we get both of below outcomes:
         Outcome 1: start = mid + 1 = k + 1, now arr[start] = arr[k + 1] = 16, arr[end] = arr[k] = 14
         Outcome 2: Since start = k + 1, end = k, as start > end the loop will now break.
 

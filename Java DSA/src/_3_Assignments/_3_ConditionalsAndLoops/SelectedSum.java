@@ -4,23 +4,24 @@ public class SelectedSum {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.println("Keep Entering integers, Input zero to stop.");
-        String inp = in.nextLine();
-        int num, sumNeg = 0, sumEven = 0, sumOdd = 0;
-        while(!inp.equals("0")){
+        int sumNeg = 0, sumEven = 0, sumOdd = 0, inp = -1;
+        while(inp != 0){
             try {  // Exception Handling
-                num = Integer.parseInt(inp);
+                inp = in.nextInt();
             }
             catch (Exception e){
                 System.out.println(e+"\nPlease enter integers only.");
+                in.next(); // This line is necessary to consume invalid input and avoid infinite loop
+                // Because once an exception occurs the 'try' block will not execute again and the lopp continues from
+                // the point of failure.
                 continue;
             }
-            if(num > 0 && num % 2 == 0)
-                sumEven += num;
-            else if(num > 0)
-                sumOdd += num;
+            if(inp < 0)
+                sumNeg += inp;
+            else if(inp % 2 == 0)
+                sumEven += inp;
             else
-                sumNeg += num;
-            inp = in.nextLine();
+                sumOdd += inp;
         }
         System.out.printf("""
                 

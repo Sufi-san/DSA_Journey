@@ -31,7 +31,7 @@ public class CyclicSort { // Important pattern for amazon, google, fb companies
         arr[correctIndex] = temp;
     }
 
-    // My Approach: (Does not provide a deep understanding, maybe useful now but not in all cases)
+    // My Approach: (This approach should be avoided, it simply sets correct values without considering previous ones)
     static void cyclicSort(int[] arr){
         for(int i = 0; i < arr.length; i++){
             arr[i] = i + 1;
@@ -40,7 +40,7 @@ public class CyclicSort { // Important pattern for amazon, google, fb companies
 
     // Kunal Approach:
     static void kunalCyclicSort(int[] arr){
-        int count = 0;
+        int count = 0, optCount = 0;
         int index = 0; // to check whether pointer has iterated through all array elements
         while(index < arr.length){
             count++;

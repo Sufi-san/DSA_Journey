@@ -7,7 +7,7 @@ public class ProductDiscount {
         double cost = in.nextDouble();
         System.out.println("Enter Discount Percentage(%):");
         double discountRate = in.nextDouble();
-        double trueDiscount = cost - cost*discountRate/100;
-        System.out.println("Discount: "+trueDiscount+"\nYou Save: "+(cost - trueDiscount));
+        double discountedCost = cost - cost*discountRate/100;
+        System.out.println("Cost After Discount: "+discountedCost+"\nYou Save: "+(cost - discountedCost));
     }
 }

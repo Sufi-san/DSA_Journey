@@ -13,8 +13,8 @@ public class OrderAgnosticBS {
         }
         System.out.println(Arrays.toString(arr)+" Array with unknown sort entered.");
         System.out.println("Enter element to search for: ");
-        int target = in.nextInt(), ans;
-        ans = orderAgnosticBS(arr, target);
+        int target = in.nextInt();
+        int ans = orderAgnosticBS(arr, target);
         System.out.println("Element is at index: "+ans);
     }
 

@@ -14,7 +14,7 @@ public class SelectionSort {
         Time Complexity:
         Best Case:
          O(N^2) (without optimisation)
-         O(N) (with optimisation)(All elements are in ascending/descending order as per requirement)
+         O(N) (with optimisation)(All elements are in ascending/descending order as per requirement) (questionable)
         Worst Case: O(N^2) (Last element of the array needs to be placed at second last position or first at second position)
 
         Space Complexity: O(1) ... (in-place sorting algorithm) (no new array created)
@@ -48,11 +48,9 @@ public class SelectionSort {
 
     // My Approach:
     static void selectionSort(int[] arr){ // Ascending Selection Sort
-        int minIndex;
-        boolean isSorted;
         for(int i = 0; i < arr.length - 1; i++){
-            minIndex = i; // setting minimum element's index as the current start of interval in array
-            isSorted = true; // assuming the array is now sorted
+            int minIndex = i; // setting minimum element's index as the current start of interval in array
+            boolean isSorted = true; // assuming the array is now sorted
             for(int j = i; j < arr.length; j++){ // j = i, makes sure that sorted portion is left untouched
                 if(arr[j] < arr[minIndex]){
                     minIndex = j;
@@ -75,11 +73,10 @@ public class SelectionSort {
 
     // Kunal Approach: (just selecting maximum elements instead of minimum)
     static void kunalSelSort(int[] arr){
-        int maxIndex;
         for(int i = 0; i < arr.length - 1; i++){
             // i < arr.length - 1 indicates loop will run n - 1 times
             // similar to how we say loop ran n times when i < arr.length due to 0-index
-            maxIndex = 0;
+            int maxIndex = 0;
             for(int j = 0; j < arr.length - i; j++){
                 if(arr[j] > arr[maxIndex]){
                     maxIndex = j;

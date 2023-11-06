@@ -14,7 +14,11 @@ public class PrimeRange {
 
     static void givePrimeRange(int num1, int num2){
         System.out.println("\nPrime Numbers in selected range are:\n");
-        int max = Math.max(num1, num2), min = Math.min(num1, num2), primeCount = 0;
+        int primeCount = 0, min = num1, max = num2;
+        if(num1 > num2){
+            min = num2;
+            max = num1;
+        }
         min = (min == 0 || min == 1)? 2 : min;
         for(int i = min; i <= max; i++){
             if(primeCount - 10 == 0) {

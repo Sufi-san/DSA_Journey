@@ -1,0 +1,43 @@
+Q.1 Build Array from Permutation (Not yet fully understood(binary bits storing 2 values at one index), just know the formula)
+Ans:
+    Storing 2 values at one index enables us to solve in O(1) space.
+	Though it can be solved very easily using extra O(n) space, we can use the following approach to solve in O(1) extra space.
+	For this, we need 2 loops.
+	First loop converts the existing numbers such that if we divide them by array length, we get the correct element to be placed at that index.
+	Formula for which is, if n = nums.length and 0 <= i < nums.length:
+		nums[i] = nums.length * (nums[nums[i]] % n) + nums[i]
+	In the second loop, we divide each element by array size to get required element at that index.
+
+	Thus, one easy take-away would be that, we are 'modifying' the original array in the first loop, in such a way that we get the
+	required final state as answer, upon dividing each element by the size of the array.
+
+MORE UNDERSTANDABLE:
+	Now, there is some understanding of binary bits and operation on those bits required to fully understand the above approach.
+	Approach: (using of leftover bits of an integer to store another value)
+	The former approach is just a formulaic simplification of this approach.
+	As there are (2^31) - 1 bits in an integer, and in the question the range is limited to 1000 which gets covered up in (2^9) we can store another
+	value in the remaining (32 - 9) = 23 bits.
+	This involves the use of adding 'value + (value % 1024) << 10' to every array value in first loop and then doing a right-shift(>>) of 10 to all
+	these array values in the second loop. (the 'value % 1024' ensures that we get the original value if it is already changed)
+
+Q.5 Shuffle the Array
+Ans:
+    This question teaches us 2 important things.
+    First is to be mindful of the use of index pointers.
+    For instance, this question required the use of 2 pointers to be used in one loop, with different increments.
+    Second is the same as Q.1.
+    Storing 2 values at one index and solve in constant space O(1).
+
+Q.7 Number of Good Pairs
+Ans:
+    O(N^2) approach is very simple. (This question is included so that I can solve it using Hashmaps with O(N) time and O(N) space)
+    O(N) approach using HashMaps
+
+Q.8 How Many Numbers Are Smaller Than The Current Number
+Ans:
+    Same condition like Q.7, though people in discussions referred to HashMap as Frequency Array.
+    O(N) approach using HashMap:
+
+
+
+

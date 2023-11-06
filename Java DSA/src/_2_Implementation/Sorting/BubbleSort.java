@@ -60,7 +60,7 @@ public class BubbleSort { // Also known as Sinking Sort/ Exchange Sort.
         }
     }
 
-    // Kunal Approach: Just a change in the for-loop styles.
+    // Kunal Approach: Just a change in the for-loop styles and array indices.
     static void kunalBSort(int[] arr){
         boolean swapped;
         for(int i = 0; i < arr.length; i++){

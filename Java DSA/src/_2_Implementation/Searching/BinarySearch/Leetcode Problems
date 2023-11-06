@@ -3,7 +3,7 @@ SOL:
         Approach: O(logN)
         Simple Binary Search, remove equal to case and use the ceil logic.
         If letter does not exist, start pointer has still reached the end and first letter needs to be returned.
-        For wrap around cases when start reaches end, use % in the logic to return first letter even when start
+        For wrap around cases when start reaches end(beyond limit), use % in the logic to return first letter even when start
         exceeds index.
 
 Q2. Find First and Last Position of Element in Sorted Array
@@ -24,7 +24,7 @@ SOL:
         If not, recognize in which half of the array the mid falls in and then adjust start and
         end pointer accordingly.
         When element at mid satisfies conditions for peak element, return mid.
-        Note: Do not use mid - 1 while checking conditions.
+        Note: Do not use mid - 1 while checking conditions. (can be used but should be avoided for ease)
 
 Q4. Find in Mountain Array
 SOL:
@@ -59,9 +59,12 @@ SOL:
         Solved: (Approach: Comparing mid to end element and finding the minimum value's index)
                 With a few tweaks like (start < end) and if(arr[mid] <= arr[end]) in the conditions the algorithm works
                 for duplicate values too.
-                So instead of stopping the loop when start > end, we stop even when they point at the same index.
+                So instead of stopping the loop when start > end, we stop even when they point at the same index (start == end).
                 This allows arr[mid] <= arr[end] as after adding this condition, start and end will never be different
                 from each other when they reach the target element.
+		Note: The above instructions work for 'Finding Minimum Element' in the type of array which gets formed in the
+		      question. It does NOT specify the working of 'Binary Search' to find index of a pre-defined 'Target' element.
+		     (To understand Binary Search with duplicate values, 'BSwithDuplicates' program can be referred from 'Implementation'.
 
 Q6. Split Array Largest Sum
 SOL:
@@ -79,28 +82,44 @@ SOL:
                                 though in sequence, are not contiguous, these can be considered as
                                 subsequences instead.
     Aim is to minimize the largest sum, where sum is the addition of all elements of sub-arrays resulting from
-    a split in the main array. Number of sub-arrays required = k, where 1 <= k <= min(50, arr.length)
-    All integers in array are positive
+    a split in the main array. Number of non-empty sub-arrays required = k, where 1 <= k <= min(50, arr.length)
+    All integers in given array are positive.
 
     Brute Force Approach: (Time Limit Exceeded)
     Find all possible sub-arrays resulting from all possible splits at different positions in the sub array,
     calculate the largest sum for each split and return the minimum of those largest sums.
 
-    Binary Search Approach:
+    Binary Search Approach: O(N*logN)
     First find the minimum and maximum sum that can be generated from the array
-    Sum with 1 Piece (Array Intact) = Sum of all elements of array = Highest Sum
-    Sum with arr.length pieces (all elements have their own array) = Maximum element of the array = Lowest Sum
-    Now every possible largest sum will lie between the range: [Lowest Sum, Highest Sum]
+    Sum with 1 Piece (Array Intact) = Sum of all elements of array = Highest Largest Sum
+    Sum with arr.length pieces (all elements have their own array) = Maximum element of the array = Lowest Largest Sum
+    Now every possible largest sum will lie between the range: [Lowest Sum (Maximum Pieces), Highest Sum (1 Piece)]
 
-    After this we apply binary search taking start = Lowest Sum and end = Highest Sum.
+    After this we apply binary search taking, start = Lowest Sum and end = Highest Sum.
     Then inside the binary search loop we traverse the array and create possible sub arrays which add up to mid.
     If the resulting addition exceeds mid, we count pieces = pieces + 1 (sub-array detected), (pieces will be
-    reset to 1 once a traversal in the array finishes)
-
+    reset to 1 for next traversal in the array if required by binary search loop) and move on to cluster
+    the rest of the elements.
+    
+    From above details we have derived the rule that, (binary search approach shines here!)
+    More Number of Pieces = Smaller Sum AND Less Number of Pieces = Larger Sum
     Now, according to the number of pieces being more or less than k, we adjust our start and end pointers.
-    If pieces are more than or equal to required, start = mid + 1
-    If pieces are less than required, end = mid - 1
+    If pieces are more than required, start = mid + 1
+    If pieces are less than or equal to required, end = mid
     Eventually singling out the required minimized largest sum for k sub-arrays.
+    The reason, why we do not end the loop even when we find that pieces = k for a given sum (mid), is because
+    there is always a chance that the sum can be minimized even further with the number of pieces staying the
+    same. Thus, answer is only returned after the loop ends (start == end).
+    
+    Thus, instead of generating multiple sums from different 'k' pieces of an array, we create a possible set of
+    pieces(sub-arrays) according to a probable minimized sum (answer) and then check whether it is correct by comparing 
+    the number of pieces generated to 'k'. If they are equal, then the generated sum (mid) is our answer, if not then we
+    look for a different sum by finding another 'mid' in the now shortened range between 'start' and 'end'.
+
+    QUESTION: What if there is no possible combination of sub-arrays with 'maximum sub-array sum = mid' for a given 'mid'?
+    ANS: We use the 'mid' only to set a limit for generating sub-arrays, if no sub-array sum matches the value of mid then
+    	 it further proves that the currently generated sub-array combination is not valid. So we just focus on the amount
+    	 of sub-arrays generated (pieces) and then adjust 'start' and 'end' to find new 'mid'.
 
     The loop finishes when start becomes equal to end and we return either of the two as answer.
     (Quite frankly I still haven't fully understood the approach yet but have an idea of how it works.)

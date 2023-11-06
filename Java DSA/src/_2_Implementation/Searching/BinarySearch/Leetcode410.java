@@ -12,7 +12,6 @@ class Solution {
     public int splitArray(int[] nums, int k) {
         int start = arrayMax(nums); // condition when k is nums.length
         int end = arraySum(nums); // condition when k is 1, hence range found
-        int ans = start;
         while(start != end){
             int sum = 0, pieces = 1, mid = start + (end - start) / 2;
             for(int element: nums){
@@ -25,12 +24,11 @@ class Solution {
             if(pieces > k){ // If number of pieces exceeds required sub-arrays(k)
                 start = mid + 1;
             }
-            else{
+            else{ // If number of pieces are less than or equal to required sub-arrays(k)
                 end = mid;
             }
-            ans = end;
         }
-        return ans;
+        return end;
     }
 
     int arraySum(int[] arr){

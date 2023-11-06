@@ -7,7 +7,7 @@ public class AverageOfN {
         String input;
         System.out.println("Keep entering numbers, press 'X' to stop and calculate Average of all numbers: ");
         input = in.next();
-        while(!input.equals("X") && !input.equals("x")){
+        while(!input.equalsIgnoreCase("X")){
             count++;
             sum += Double.parseDouble(input);
             input = in.next();

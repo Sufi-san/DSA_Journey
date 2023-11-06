@@ -2,7 +2,7 @@ package _2_Implementation.Recursion;
 
 public class OptimizedFibonacci {
     public static void main(String[] args) {
-        System.out.println("Enter nth term to display corresponding Fibonacci Number: ");
+        System.out.println("Displaying Fibonacci Numbers from 0th till 71st term: ");
         int num = 0;
         while(num <= 71){ // method 1, works well till 71, method 2 works well till 92
             System.out.println(findFibo(num)+" "+findFibo2(num));

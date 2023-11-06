@@ -1,0 +1,23 @@
+1. Intro to Programming:
+	* Why use Programming Languages?
+	* Types of Programming Languages: Procedural, Functional and Object Oriented.
+	  (Java is Procedural and Object Oriented but, Functional style can be implemented.)
+	* Static vs Dynamic Programming Languages.
+	* Memory Management (Stack & Heap Memory, (Reference Variable & Object)/(Identifier & Literal))
+2. Flow of Program:
+	* Shapes used in Program Flowchart (for Start/End, I/O, Processing, Conditions, Flow of Program)
+	* Pseudocode for code Algorithm (no syntax required)
+	* Optimisation of Algorithms (e.g: Prime Number)
+3. Intro to Java:
+	* Java is Platform Independent. (.class file can run on any OS)
+	* Source Code(.java file) -> Byte Code(.class file) -> Machine Code(0s & 1s)
+	* Architecture of Java: 
+	  JDK(JRE(JVM(Java Interpreter + JIT) + Class Loader + ByteCode Verifier + Library Classes) + Compiler(converts .java to .class) + Development Tools)
+	* JDK: used for development as well as execution of java code, also has other tools(javac, jar, javadoc).
+	* JRE: 
+	  - can only run .class files resulting from compilation of .java files from JDK Compiler, cannot be solely used for development.
+	  - Structure/Steps: Class Loader(loads required classes as binary data) -> Bytecode Verifier -> Interpreter -> Runtime -> Hardware
+	* JVM:
+	  - Interpreter interprets bytecode line-by-line, JIT provides saved machine code for recurring methods and garbage collection.  
+	  - JVM is platform dependent. (different for different OS)
+

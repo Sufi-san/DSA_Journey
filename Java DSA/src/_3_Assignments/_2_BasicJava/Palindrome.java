@@ -17,8 +17,9 @@ public class Palindrome {
     }
 
     static void palindromeCheck(StringBuilder seq, String ign_case, String ign_space){
-        boolean condition; // initializing boolean variable
+        boolean isPalindrome; // initializing boolean variable
         String cmp1, cmp2;
+
         if(ign_space.equalsIgnoreCase("Yes")){
             cmp1 = seq.toString().replaceAll(" ", "");
             cmp2 = seq.reverse().toString().replaceAll(" ", "");
@@ -30,16 +31,16 @@ public class Palindrome {
             return;
         }
         if(ign_case.equalsIgnoreCase("Yes")){
-            condition = cmp1.equalsIgnoreCase(cmp2);
+            isPalindrome = cmp1.equalsIgnoreCase(cmp2);
             // .equalsIgnoreCase, ignores the case of the letters while comparing strings.
         }else if(ign_case.equalsIgnoreCase("No")){
-            condition = cmp1.equals(cmp2);
+            isPalindrome = cmp1.equals(cmp2);
         }else{
             System.out.println("Please Enter appropriate values.");
             return;
         }
 
-        if(condition)
+        if(isPalindrome)
             System.out.println("Entered String is a Palindrome.");
         else
             System.out.println("Entered String is not a Palindrome.");

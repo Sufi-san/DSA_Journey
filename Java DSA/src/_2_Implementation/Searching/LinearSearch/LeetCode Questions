@@ -1,4 +1,3 @@
-
 Q1. Find Numbers with Even Numbers of Digits
 SOL:
         Naive Approach: O(N^2)
@@ -7,16 +6,18 @@ SOL:
         Check whether the number of digits is even or odd, if even increase count.
         Return the count
 
-        Kunal Approach:
-        Use the (Math.log10() + 1) method on each of the digits, typecast the return value to integer and check
+        Kunal Approach: O(N*logN)
+        Use the (Math.log10() + 1) method on each of the numbers, typecast the return value to integer and check
         whether the integer is even or odd, if even increase count.
         Return the count.
 
 Q2. Richest Customer Wealth
 SOL:
         Naive Approach: O(N^2)
-        Go through all elements of 2D Array and add wealth of all bank accounts in a single array.
-        Assign that wealth to a variable.
-        Repeat the process for all customer arrays and compare the wealth to wealth variable each
-        time a customer array is fully traversed.
+        Go through all elements of 2D Array and add wealth of all bank accounts present in a single array (row).
+        Assign that wealth sum to a variable.
+        Repeat the process for all customer arrays (rows) and compare the wealth sum to current value of wealth
+        variable each time a customer array is fully traversed.
+        If the value in wealth variable is less than current customer array sum, change value of wealth variable
+        to current customer array sum. (maximum logic)
         Return the wealth variable.

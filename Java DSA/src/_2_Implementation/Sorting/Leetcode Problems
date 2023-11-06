@@ -6,6 +6,8 @@ SOL:
         Use Cyclic Sort on the array. As the range in array is (0, n) we know arr[index] = index.
         Using this, we sort the array and then perform a linear search to return the array index which
         does not contain expected element.
+        If all numbers are at expected index, we return the next number that is, the length of the 0-index
+        array.
         The swapping for sort is performed only when an element does not match its index and the correct
         index is not out of array bounds.
         Else we just increment index to check next element
@@ -21,6 +23,10 @@ SOL:
         Thus, all other elements except the duplicates will get sorted and those indexes which contain the
         duplicates are the ones whose correct element has disappeared.
         We then simply apply linear search and return index + 1 for all indices not having their correct element.
+        Note: In this case the condition that decides whether we need to swap or increment the pointer must be,
+              arr[i] == arr[arr[i] - 1] and NOT just arr[i] = i + 1 ...
+              This is because there can be duplicate elements instead of required numbers inside the array and in
+              those cases the later condition will create an infinite loop.
 
 Q3. Find the Duplicate Number:
 SOL:
@@ -29,7 +35,8 @@ SOL:
 
         Approach: O(N)
         Cyclic Sort will be applied exactly same as the above problem.
-        In this problem, as there is only one duplicate, all the elements except the duplicate will get sorted.
+        In this problem, as there is only one (not 'one' in quantity but 'one' in identity) duplicate, all the
+        elements except the duplicate will get sorted. (e.g: [2, 2, 2, 2, 2] is valid as only 2 has duplicates)
         Thus, this will make the duplicate swap to the last index of the array as its correct index is already
         full.
         We then simply return the element at index = arr.length - 1
@@ -58,3 +65,8 @@ SOL:
         we return index + 1.
         In case there are no missing elements inside the array, we consider the element that should have
         appeared if the array was one size longer. (arr[arr.length - 1] + 1)
+        Note: In above case we can also return arr.length + 1, because if there are negative elements or
+              zero present in the array, the answer will be returned in the loop.
+              The above case will only come into existence when we have an array starting from value 1
+              and which has no missing integers. In such a case we can return both arr[arr.length - 1] + 1
+              or arr.length + 1, as the final answer.

@@ -2,6 +2,7 @@ package _3_Assignments._3_ConditionalsAndLoops;
 import java.util.Scanner;
 import java.lang.StringBuilder;
 public class ElectricityBill {
+    // Trying out Object-Oriented Programming
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int typeCount, monthDays;
@@ -60,6 +61,5 @@ class Appliance{
         return "\nAppliance Name: "+this.name+"\nAppliance Count: "+this.count+"\nPower Consumption(per piece): "+
                 this.watts+" W\nUsed for: "+this.useHours+" hour(s)"+"\nEnergy Required("+days+" days): "
                 +this.calcTotalPower(days)+" Wh";
-
     }
 }

@@ -10,12 +10,12 @@ public class PermutationCombination {
         System.out.println("Enter Value for 'r': ");
         int r = in.nextInt();
         int nPr = calcFactorial(n)/calcFactorial(n - r);
-        int nCr = nPr/r;
+        int nCr = nPr/calcFactorial(r);
         System.out.printf("C(%d, %d) = %d, P(%d, %d) = %d", n, r, nCr, n, r, nPr);
     }
 
     static int calcFactorial(int x){
-        x = (x != 1) ? x * calcFactorial(x-1) : 1;
+        x = (x != 1) ? x * calcFactorial(x-1) : x; // Using Recursion
         return x;
     }
 }

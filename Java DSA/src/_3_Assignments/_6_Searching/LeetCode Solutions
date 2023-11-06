@@ -1,0 +1,120 @@
+Q.1, Q.4 
+(Squares & Square Roots)
+Ans: (These are added here just for the reminder of being aware of type conversions (int -> long) to avoid overflows during Searching.
+
+Q.7
+Ans:
+1. Solution using Linear Search(1):
+     We maintain 3 variables inside a while loop.
+     First to keep track of what we need to look for, 'num' starting from 1 as it is the first positive integer.
+     Second to keep track of iterations with respect to array length, 'i' starting from zero
+     Third will be 'k' itself which we will keep decrementing if 'num' is not found at any instance of iteration.
+     The while loop runs till either k becomes zero or 'i' crosses end bound of array.
+     If value is equal to expected value, increase both 'i' and 'num'.
+     If value is not equal to expected, decrease 'k'('num' not present) and increase 'num'(finding next number).
+     After loop ends, we return num - 1 + k.
+     'num - 1' because, at the end of the loop 'num' will be always 'required value' + 1, for k to be zero.
+     '+ k' because, in case not all missing numbers belong to the array, the final answer would be the
+     addition of the last 'num' and 'remaining number of values missing'
+     e.g: If arr = {2, 4, 6} and k = 5,
+          then at the end of the loop, 'num = 7' and 'k = 5 - 1 - 1 - 1 = 2'.
+          Thus, we return 'num - 1 + k = 7 - 1 + 2 = 8'
+
+2. Solution using Linear Search(2):
+    Instead of decrementing 'k' whenever element is not found, we will now appropriately increment 'k' at every
+    iteration and check it against a condition before returning it as the required answer.
+    Before understanding the condition we must understand the following points:
+        - If no positive integer was given in the array then 'k' itself is the missing positive integer (answer)
+        - If the 1st element of given array is greater than 'k' then again, 'k' itself is the answer
+    By noticing this pattern, we now have to adjust 'k' inside the loop based on the number of positive integers
+    found in the array. For this we increment 'k' by 1 each time we encounter a positive integer in the array.
+    The questions that arise now are, how do we know when to stop?, what if the answer value is greater than the
+    last element of the array?, what if the answer falls in middle of two sequential array elements whose values
+    have a large difference?
+    These are all answered by the condition that we need to check for before continuing to increment 'k' further.
+    If at any point, a value is GREATER than 'k' then we return 'k' as we know now that we have reached the upper
+    limit.
+    However, if 'k' is less than or equal to the value of array element, then we continue to increment 'k' by one.
+    The following example provides better illustration:
+    e.g: arr = [5, 8, 10, 13]
+    a) For all values up which are less than first element (k < 5), 'k' itself is the answer.
+    b) For values equal to or greater than 5 (k >= 5), we run the search:
+        let k = 8
+        - Iteration 1: arr[0] < k (5 < 8) --> k++ (k becomes 9) ... assumption of k = 8 for answer is wrong
+        - Iteration 2: arr[1] < k (8 < 9) --> k++ (k becomes 10) ... assumption of k = 9 for answer is wrong
+        - Iteration 3: arr[2] == k (10 == 10) --> k++ (k becomes 11) ... assumption of k = 10 for answer is wrong
+        - Iteration 4: arr[3] > k (13 > 11) --> return k (11 gets returned) assumption of k = 11 for answer is correct !
+       Thus, we took into account all the non-missing number an incremented our required positive integer till it fell
+       into a range.
+    c) What if all array elements are less than 'k'?
+        let k = 13
+        - Iteration 1: arr[0] < k (5 < 13) --> k++ (k becomes 14) ... assumption of k = 13 for answer is wrong
+        - Iteration 2: arr[1] < k (8 < 14) --> k++ (k becomes 15) ... assumption of k = 14 for answer is wrong
+        - Iteration 3: arr[2] < k (10 < 15) --> k++ (k becomes 16) ... assumption of k = 15 for answer is wrong
+        - Iteration 4: arr[3] < k (13 < 16) --> k++ (k becomes 17) ... assumption of k = 16 for answer is wrong
+        Now, as the array is finished and all values are less than 'k' at every instance of iteration, the job to find
+        correct value is even more easier !!
+        There are no non-missing values left to take into account !
+        Thus, no more shifting of assumption is necessary !
+        Thus we return the last value of 'k' which is '17' in this case.
+        If we take a look now, for arr = [5, 8, 10, 13], and k = 13,
+        Missing values are: [1(1st), 2(2nd), 3(3rd), 4(4th), 6(5th), 7(6th), 9(7th), 11(8th), 12(9th), 14(10th), 15(11th)
+                            , 16(12th), 17(13th)]
+        Thus, we have successfully found the 13th missing positive integer that is 17 by shifting 'k' as per non-missing
+        number of values in array.
+
+3. Solution using Binary Search:
+    As the given array will always be sorted, we can apply Binary Search.
+    The logic for application of Binary Search can be derived with two styles that I am aware of:
+        a) One option is to further optimize approach Linear Search(2)
+        b) Other option is to compare current element to ideal element
+    For me, style 'a' worked out. I think 'b' is still valid but I made a mistake while implementing its logic.
+
+    In 'b', aside from the edge cases, we get to know how many values are missing in array up till any point by
+    using the logic:
+        arr[index] - (index + 1),
+        e.g: In [2, 3, 4, 7, 11], Missing values till index '3' are: arr[3] - 4 = 7 - 4 = 3. Which are(1, 5, 6)
+    This logic is developed by taking note of the fact of what should ideally be present in the array as positive integers.
+    For ideal array, at every index what should be present is: (index + 1), 0 -> 1, 1 -> 2, ..., n -> (n + 1)
+    Thus, we find the difference between actual value and the ideal value using the above formula.
+    We then use this difference for all indexes to shorten our search using Binary Search on the array.
+
+    In 'a', we use the logic of Approach 2, but implement it using Binary Search.
+    The edge cases are taken care of in the same manner.
+    But for searching, we focus closely on how the value 'k' follows a pattern for every index as it gets incremented by 1.
+    The pattern is, for every index,
+        (current value) k = (initial value) k + index
+        e.g: In [2, 3, 4, 7, 11] and to find 2nd missing positive integer (k = 2),
+             Value of 'k' at index '0' will be: (initial 'k') 2 + 0 = 2 ... (last 'k' + 1)
+             Value of 'k' at index '1' will be: (initial 'k') 2 + 1 = 3 ... (last 'k' + 1)
+             Value of 'k' at index '2' will be: (initial 'k') 2 + 2 = 4 ... (last 'k' + 1)
+             Value of 'k' at index '3' will be: (initial 'k') 2 + 3 = 5 ... (last 'k' + 1)
+        In this way we can find what 'k' value should have been on any given index with adding '1' for every index,
+        based on the original 'k' value.
+    This will be then used in Binary Search where
+    if: (value of 'k' for current index) k(initial value) + mid >= arr[mid] --> start = mid + 1
+    else if: k(initial value) + mid < arr[mid] --> end = mid - 1
+    Thus, in this way, the 'end' pointer will always provide us the floor value for which if we use the same formula
+    that is, k = k + index + 1, (+1 because we want the value of 'k' that should have been used for next comparison)
+    we return 'k + end + 1' as the answer.
+
+Q.9
+Ans:
+Common step: Maintain a count variable which is initialized with zero.
+
+1. Solution using Linear Search:
+    Simply use linear search to check all elements of the matrix and increment count whenever negatives are found.
+
+2. Solution with O(m + n) optimization: (where 'm' is number of rows and 'n' is number of columns)
+    !! This taught me to always be alert while setting limits for 'columns' in matrix searches !!
+    For a matrix named 'mat' the limit for row will be as, row = mat.length - 1.
+    !! But in case of column given that 'mat' is not a square matrix, 'col = mat[row].length - 1' !!
+    I first selected the top-right element of the matrix but I think I made some mistakes while setting the length.
+
+    So, approach is select bottom-left element, adjust row and column initial value accordingly.
+    If it is greater than or equal to zero, increment column.
+    If it is less than zero (negative), count all row elements till end from current index and add it to total count,
+    decrement row.
+    (Above steps are taken, keeping in mind that matrix is sorted in a non-increasing(can be equal too) manner for
+    both rows and columns.
+

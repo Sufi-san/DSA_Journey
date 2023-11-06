@@ -3,7 +3,7 @@ package _2_Implementation.Recursion;
 public class FibonacciNumbers {
     // Find nth Fibonacci Number
     public static void main(String[] args) {
-        int num = 50;
+        int num = 46;  // Turns erroneous starting from 47
         int ans = findFibonacci(num, 0, 1);
         System.out.println(ans);
         System.out.println(findFibonacci(num));
@@ -15,16 +15,15 @@ public class FibonacciNumbers {
      */
     static int findFibonacci(int n, int a, int b){
         if(n > 1){
-            return findFibonacci(n - 1, b, a + b);
+            return findFibonacci(n - 1, b, a + b); // Head Recursion?
         }
-        else{
-            return b;
-        }
+        if(n < 1) return a;
+        return b;
     }
 
     // Kunal Approach
     /*
-          Recursive Tree: Multiple Branches
+          Recursive Tree: Linear Recurrence but Multiple Branches
      */
     static int findFibonacci(int n){ // 1 Variable in argument
         if(n > 1){ // 3 Variable in the body
@@ -37,6 +36,6 @@ public class FibonacciNumbers {
     /* CAUTION:
         The above method is very INEFFICIENT.
         The problem however, can be solved by using Dynamic Programming along with Recursion.
-        The time complexity is (Golden Ratio ^ n).
+        The time complexity is (Golden Ratio ^ n). (Golden Ratio = (1 + sqrt(5))/2) [Covered in detail in Complexity Lecture]
      */
 }

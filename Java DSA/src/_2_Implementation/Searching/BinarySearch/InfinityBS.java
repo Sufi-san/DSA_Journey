@@ -60,7 +60,7 @@ public class InfinityBS {
                     return mid;
                 }
             }
-            catch (Exception e){  // This executes if both end and mid are out of bound for array
+            catch (Exception e){  // This executes if mid is out of bound for array
                 end = mid - 1;
             }
         }
@@ -72,7 +72,7 @@ public class InfinityBS {
         range, I can just simply not apply binary search on that range and only check the one which has a
         possibility of containing target.
 
-        Condition: If arr[end] > target (target is present in selected range)
+        Condition: If arr[end] > target (target must be present in selected range)
 
         Kunal used another function to find the range, what I can do is find whether condition holds true in
         the binary search loop itself by using an if condition at the start.
@@ -94,10 +94,10 @@ public class InfinityBS {
                     end += (end - start + 1) * 2;
                     start = temp + 1; // temp is also used to update start using old end value
                     temp = end; // storing new end value in temp
-                    continue; // makes sure that rest of the loop commands do not execute for incorrect range
+                    continue; // makes sure that rest of the loop commands does not execute for incorrect range
                 }
             }
-            // If in case end pointer exceeds even once, this will run every time the loop runs after that
+            // If in case end pointer exceeds even once, the catch condition will run every time the loop runs after that
             catch(Exception e){
                 System.out.println("Range exceeded by end pointer. (2)");
             }

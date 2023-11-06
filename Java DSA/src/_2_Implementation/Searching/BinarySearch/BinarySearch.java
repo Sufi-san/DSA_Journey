@@ -29,7 +29,7 @@ public class BinarySearch {
         System.out.println("Index of '"+element+"' in arr1: "+index+"\nIndex by second function: "+index2+"\nIndex in descending arr1: "+index3);
     }
 
-    // My try at implementing: No Loop but I guess, more load on stack due to 4 parameters and recursion
+    // My try at implementing: No Loop but I guess, more load on stack due to 4 parameters and recursion (Recursive Approach)
     static int binarySearch(int start, int end, int[] arr, int target){
 
         if (start > end) return -1;
@@ -41,7 +41,7 @@ public class BinarySearch {
     }
 
 
-    // According to Kunal's Instructions: One While loop present
+    // According to Kunal's Instructions: One While loop present (Iterative Approach)
     static int binarySearch2(int[] arr, int target){
         int start = 0;
         int end = arr.length - 1;
@@ -53,7 +53,7 @@ public class BinarySearch {
             Let start = s, end = e
             Thus mid = s + {(e - s)/2} = (2s + e - s)/2 = (s + e)/2  (this means that both expression return same value)
             However, due to operator priority, division occurs after the subtraction in brackets,
-            elimination the chance of range exceeding.
+            eliminating the chance of range exceeding.
          */
 
             if(arr[mid] < target){
@@ -74,6 +74,7 @@ public class BinarySearch {
         int end = arr.length - 1;
         while(start <= end){
             int mid = start + (end - start) / 2;
+            // Conditions are now reversed for descending/decreasing array
             if(arr[mid] < target) end = mid - 1;
             else if(arr[mid] > target) start = mid + 1;
             else return mid;

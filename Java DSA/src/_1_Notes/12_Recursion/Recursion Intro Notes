@@ -24,7 +24,7 @@ Points to be noted:
     Try to use pen & paper whenever solving complex problem involving recursion.
     Always try to visualise the steps involved. (Creates a sort of TREE) Recursive Tree.
 
-How to determine whether a problem can be solved using recursion and how is it solved? (Best Approach
+How to determine whether a problem can be solved using recursion and how is it solved? (Best Approach)
     If the problem can be broken down into smaller repetitive problems.
     The smaller repetitive problem expression written is the formulaic form of recursion, also called 'Recurrence Relation'.
     For these Recurrence Relations, we always know of the base case, the solution of which always stays the same.
