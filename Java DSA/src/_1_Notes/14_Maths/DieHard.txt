@@ -1,0 +1,34 @@
+The example from the Die-hard movie was used to understand the concept
+        If we have a 3L and 5L gallon, how do we precisely measure 4L?
+        After understanding the process, we now know of the equation:
+            r = ax - by = ax + (-by)
+            where, 'r' is the amount of water left
+                   'a' and 'b' are the capacity of both gallons respectively
+                   'x' is amount of times gallon 'a' was filled
+                   'y' is amount of times gallon 'b' was emptied
+            Thus, we got it in the form of a linear equation.
+
+        Now, the other concept was that, if for the equation,
+        Minimum POSITIVE value of (ax - by) = 1, then '1' is the HCF (Highest Common Factor) of 'a' and 'b'
+        HCF is also called GCD(Greatest Common Divisor)
+
+        Eg: Factors of 4 -> 1, 2, 4
+            Factors of 18 -> 1, 2, 3, 6, 9, 18
+            Highest Common Factor -> 2
+            If we see '4x + 18y', for 'x = -4' and 'y = 1' we get 4(-4) + 18(1) = 18 - 16 = 2 = Min +ve Value = HCF
+        Note: Whatever comes out as common from the equation is the HCF!!, like 1(4x + 18y), 2x + 4y = 2(x + 2y)
+
+       From this, we understand that if we know the 'a' and 'b' and are required to solve for another value,
+       we can find out whether the solution is possible by the following process:
+       Eg:
+            2x + 4y = 5, Possible ?
+            2x + 4y = 2(x + 2y) = 5,
+            Now, x + 2y = 2.5
+            As we cannot use the gallons to form a decimal value,
+            It is not possible to measure 5L using gallons 2L and 4L
+
+            3x + 6y = 9, Possible ?
+            3(x + 2y) = 9, Thus, x + 2y = 9/3 = 3, Therefore it is possible!
+
+            13x + 24y = 6, Possible ?
+            1(13x + 24y) = 6, Thus, 13x + 24y = 6/1 = 6, Therefor it is possible!

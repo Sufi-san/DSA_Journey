@@ -21,6 +21,7 @@ public class SelectionSort {
 
         Selection Sort is great when size of array is small.
      */
+    // Recursive version available in 'Recursion' Package
     public static void main(String[] args) {
         int[] arr1 = {1, 2, 3, 4, 5}, arr2 = {1, 2, 3, 4, 5}, arr3 = {1, 2, 3, 5, 4}, arr4 = {2, 1, 3, 4, 5};
         System.out.println("Array1 before Selection Sort: "+ Arrays.toString(arr1));

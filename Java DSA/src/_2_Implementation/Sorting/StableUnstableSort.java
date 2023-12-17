@@ -1,5 +1,7 @@
 package _2_Implementation.Sorting;
 
+import _2_Implementation.Recursion.Explanations.MergeSort;
+
 import java.util.Arrays;
 
 public class StableUnstableSort {
@@ -13,11 +15,13 @@ public class StableUnstableSort {
      1. Bubble Sort: 10(black), 10(red), 20(red), 20(black), 30(black), 30(red), 40(black)
      2. Selection Sort: 10(black), 10(red), 20(black), 20(red), 30(red), 30(black), 40(black)
      3. Insertion Sort: 10(black), 10(red), 20(red), 20(black), 30(black), 30(red), 40(black)
+     4. Merge Sort: 10(black), 10(red), 20(red), 20(black), 30(black), 30(red), 40(black)
 
      Conclusion:
      1. Bubble Sort - The original color wise order is preserved, thus the sorting is STABLE
      2. Selection Sort - The original color wise order is NOT preserved, thus the sorting is UNSTABLE
      3. Insertion Sort - The original color wise order is preserved, thus sorting is STABLE
+     4. Merge Sort - The original color wise order is preserved, thus sorting is STABLE
 
      */
     public static void main(String[] args) {
@@ -32,6 +36,9 @@ public class StableUnstableSort {
         System.out.println("\nArray before Insertion Sort: "+Arrays.toString(arr));
         System.out.println("Array after Insertion Sort: "+insertionSort(arr));
         System.out.println("Thus, Insertion Sort is STABLE.");
+        System.out.println("\nArray before Merge Sort: "+Arrays.toString(arr));
+        System.out.println("Array after Merge Sort: "+Arrays.toString(new MergeSort().recursiveMergeSort(arr)));
+        System.out.println("Thus, Merge Sort is STABLE.");
     }
 
     static void swap(double[] arr, int a, int b){

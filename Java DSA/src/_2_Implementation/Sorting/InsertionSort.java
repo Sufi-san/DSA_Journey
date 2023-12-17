@@ -29,8 +29,9 @@ public class InsertionSort {
         Mostly used for smaller sizes and works good when array is partially sorted.
         Thus, they are also used in hybrid sorting algorithms.
      */
+    // Recursive version available in 'Recursion' Package
     public static void main(String[] args) {
-        int[] arr1 = {1, 2, 3, 4, 5}, arr2 = {1, 2, 3, 4, 5}, arr3 = {5, 4, 3, 2, 1}, arr4 = {5, 4, 3, 2, 1};
+        int[] arr1 = {1, 2, 3, 4, 5}, arr2 = arr1.clone(), arr3 = {5, 4, 3, 2, 1}, arr4 = arr3.clone();
         System.out.println("Array1 before Insertion Sort: "+ Arrays.toString(arr1));
         insertionSort(arr1);
         System.out.println();

@@ -1,10 +1,12 @@
 
 1. This folder consists of solution for assignment questions from Kunal's DSA Bootcamp.
 
-2. For leetcode problems, a text file is created inside each folder and the segregated (easy/medium/hard) links to those problems are added to that text file.
+2. Files ending with 'D' are DONE, 'U' are Unlocked, 'L' are Locked which represents their state of completion.
 
-3. If that particular question is already solved, a "(DONE)" is added to the end of the link.
+3. For leetcode problems, a text file is created inside each folder and the segregated (easy/medium/hard) links to those problems are added to that text file.
 
-4. For special problems another java program file will be created to save the solution code for that particular problem.
+4. If that particular question is already solved, a "(DONE)" is added to the end of the link.
 
-5. If by any chance I start blogging about solutions to some special problems, the links to those will be added in a text file in respective folders with the serial number of the problem in the problem link text file.
+5. For special problems another java program file will be created to save the solution code for that particular problem.
+
+6. If by any chance I start blogging about solutions to some special problems, the links to those will be added in a text file in respective folders with the serial number of the problem in the problem link text file.

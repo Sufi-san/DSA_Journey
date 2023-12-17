@@ -17,6 +17,7 @@ public class BubbleSort { // Also known as Sinking Sort/ Exchange Sort.
 
         Space Complexity: O(1) ... (in-place sorting algorithm) (no new array created)
      */
+    // Recursive version available in 'Recursion' Package
     public static void main(String[] args) {
         int[] arr1 = {1, 2, 3, 4, 5}, arr2 = {1, 2, 3, 4, 5}, arr3 = {5, 4, 3, 2, 1}, arr4 = {5, 4, 3, 2, 1};
         System.out.println("Array1 before Bubble Sort: "+Arrays.toString(arr1));

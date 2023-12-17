@@ -10,6 +10,7 @@ public class TrickSwap {
     }
 
     static int trickSwap(int x, int y){
+        System.out.println("x = "+x+", y = "+y);
         return x; // returning the old value of b to the 'a' in main function.
     }
 }
