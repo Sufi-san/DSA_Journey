@@ -41,7 +41,7 @@ public class BinarySearch {
     }
 
 
-    // According to Kunal's readme: One While loop present (Iterative Approach)
+    // According to Kunal's Other Sources: One While loop present (Iterative Approach)
     static int binarySearch2(int[] arr, int target){
         int start = 0;
         int end = arr.length - 1;

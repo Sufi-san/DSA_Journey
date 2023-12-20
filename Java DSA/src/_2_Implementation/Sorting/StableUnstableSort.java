@@ -1,7 +1,7 @@
 package _2_Implementation.Sorting;
 
 import _2_Implementation.Recursion.Explanations.MergeSort;
-
+import _2_Implementation.Recursion.Explanations.QuickSort;
 import java.util.Arrays;
 
 public class StableUnstableSort {
@@ -16,12 +16,14 @@ public class StableUnstableSort {
      2. Selection Sort: 10(black), 10(red), 20(black), 20(red), 30(red), 30(black), 40(black)
      3. Insertion Sort: 10(black), 10(red), 20(red), 20(black), 30(black), 30(red), 40(black)
      4. Merge Sort: 10(black), 10(red), 20(red), 20(black), 30(black), 30(red), 40(black)
+     5. Quick Sort: (order will differ according to selected pivot, but in any case it will be UNSTABLE)
 
      Conclusion:
      1. Bubble Sort - The original color wise order is preserved, thus the sorting is STABLE
      2. Selection Sort - The original color wise order is NOT preserved, thus the sorting is UNSTABLE
      3. Insertion Sort - The original color wise order is preserved, thus sorting is STABLE
      4. Merge Sort - The original color wise order is preserved, thus sorting is STABLE
+     5. Quick Sort - The original color wise order NOT preserved, thus the sorting is UNSTABLE
 
      */
     public static void main(String[] args) {
@@ -39,6 +41,10 @@ public class StableUnstableSort {
         System.out.println("\nArray before Merge Sort: "+Arrays.toString(arr));
         System.out.println("Array after Merge Sort: "+Arrays.toString(new MergeSort().recursiveMergeSort(arr)));
         System.out.println("Thus, Merge Sort is STABLE.");
+        System.out.println("\nArray before Quick Sort: "+Arrays.toString(arr));
+        new QuickSort().quickSort_noComments(arr);
+        System.out.println("Array after Quick Sort: "+Arrays.toString(arr));
+        System.out.println("Thus, Quick Sort is UNSTABLE.");
     }
 
     static void swap(double[] arr, int a, int b){

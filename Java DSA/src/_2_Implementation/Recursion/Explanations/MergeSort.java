@@ -123,7 +123,11 @@ public class MergeSort {
         int mid = start + (end - start) / 2;
         voidMergeSort(arr, start, mid);
         voidMergeSort(arr, mid + 1, end);
+        System.out.println("Arrays to merge:\narr1 = "+ Arrays.toString(Arrays.copyOfRange(arr, start, mid + 1)));
+        System.out.println("arr2 = "+ Arrays.toString(Arrays.copyOfRange(arr, mid + 1, end + 1)));
         merge(arr, start, end);
+        System.out.println("Array after merging: "+Arrays.toString(Arrays.copyOfRange(arr, start, end + 1)));
+        System.out.println("Condition of original Array: "+Arrays.toString(arr));
     }
 
     static void merge(double[] arr, int start, int end) {
