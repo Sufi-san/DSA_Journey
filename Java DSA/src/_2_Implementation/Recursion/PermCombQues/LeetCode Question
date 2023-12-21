@@ -1,0 +1,9 @@
+
+*) https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+->
+    (First read the problem description on leetcode)
+    'Any Single Digit Integer that is in character form' - '0' will return the actual value of the Integer in 'int' form
+    Eg: '9' - '0' = 9, Due to difference in ASCII Value
+
+    This problem is very similar to the Permutation problem and can be solved by using recursion.
+    However, the extraction of characters mapped to a single number can be tricky. (A hashmap can be used to make it simpler)
