@@ -26,8 +26,8 @@ public class Q1_NQueens {
         //      assign different print values to 'true' and 'false' cases
     }
 
-    // Recurrence Relation:
-    // Time Complexity:
+    // Recurrence Relation: T(N) = N * T(N - 1) + (N ^ 2)
+    // Time Complexity: O(N!) = O(N ^ N) ... Factorial or Exponential
     // Space Complexity: O(N ^ 2) ... Quadratic
     static int retNumOfWays(char[][] board, int r) {
         // We can also take another variable 'queensLeft' to account for customised number of queens
