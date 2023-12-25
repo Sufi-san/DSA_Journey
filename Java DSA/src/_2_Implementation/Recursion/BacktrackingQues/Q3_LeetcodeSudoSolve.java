@@ -2,12 +2,16 @@ package _2_Implementation.Recursion.BacktrackingQues;
 
 // Link to the question: https://leetcode.com/problems/sudoku-solver/
 
+// Note: When a can affect future answers or choices, we use backtracking
+
 // This file contains two solution methods
 /*
  Solution 1: Uses an integer type board1 matrix along with a boolean return type function to know when to stop backtracking
  Solution 2: Uses a character type board1 matrix along with a void return type function and static class variable to
              know when to stop backtracking
  */
+// The problem can also be solved by passing only the board, and checking out the first cell that is empty
+// (contains '.' or zero) and apply the 1-9 for-loop on it followed by recursively passing the board again.
 
 import java.util.Arrays;
 
@@ -47,6 +51,9 @@ public class Q3_LeetcodeSudoSolve {
         isSolved = false; // So that we can solve for the next unsolved input
     }
 
+    // Time Complexity: O(9 ^ (n ^ 2))
+    // Space Complexity: O(n ^ 2)
+
     static boolean sudokuSolver(int[][] board, int r, int c) {
         if(r == board.length) return true;
         if(c == board[r].length) return sudokuSolver(board, r + 1, 0);
@@ -67,6 +74,8 @@ public class Q3_LeetcodeSudoSolve {
     }
 
     static boolean smallMatScan(int[][] board, int r, int c) {
+        // Here, size of problem is fixed as 9, therefore we are taking '3' as the divisor in modulo operation
+        // If we want to make it more general we can take (int)Math.sqrt(board.length)
         int startRow = r - r % 3, startCol = c - c % 3;
         for(int i = startRow; i < startRow + 3; i++) {
             for(int j = startCol; j < startCol + 3; j++) {
