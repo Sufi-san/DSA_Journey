@@ -1,0 +1,16 @@
+// Two types of Packages:
+    /*
+        1) User-Defined Packages ... Everything we were doing so far consisted of this
+        2) In-built Packages ... predefined packages in Java
+           - lang -> basic language specific classes which are essential (e.g. Implementation of primitive data types)
+           - io -> classes related to Input Output, especially File Reading
+           - util -> utility classes, consists of data structures
+           - applet -> (towards development side, now OBSOLETE) used for creating servlets
+           - awt -> (this too is obsolete) used for GUI
+           - net -> for networking operations
+
+        Most Used: lang, util, io(mostly for files)
+        Other important stuff:
+        'Collections' framework (will be covered later)
+        'Object' class -> Root of the class hierarchy
+     */
