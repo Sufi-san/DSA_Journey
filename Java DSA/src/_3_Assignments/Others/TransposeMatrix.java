@@ -28,7 +28,7 @@ public class TransposeMatrix {
         int temp;
 
         for(int i = 0; i < myMat.length; i++){
-            for(int j = myMat.length-1; j > i; j--){
+            for(int j = myMat[i].length - 1; j > i; j--){
                 temp = myMat[i][j];
                 myMat[i][j] = myMat[j][i];
                 myMat[j][i] = temp;
