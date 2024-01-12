@@ -92,7 +92,7 @@ class LinkedList<T> { // with Tail Node
 
     // Implementing LinkedList node:
 
-    class Node {
+    private class Node {
 
         /*
             We can set the data members of this class to private.
@@ -193,14 +193,14 @@ class LinkedList<T> { // with Tail Node
     }
 
     T get(int index) {
-        if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
         Node reqNode = getNode(index);
+        if(reqNode == null) throw new IndexOutOfBoundsException(index);
         return reqNode.value;
     }
 
     void set(int index, T value) {
-        if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
         Node reqNode = getNode(index);
+        if(reqNode == null) throw new IndexOutOfBoundsException(index);
         reqNode.value = value;
     }
 
@@ -208,13 +208,12 @@ class LinkedList<T> { // with Tail Node
         Integer index = 0;
         Node node = this.head;
         while(node != null) {
-            if(node.value == value) return index;
+            if(node.value.equals(value)) return index;
             node = node.next;
             index++;
         }
         return null;
     }
-
 
     /*
          We will be able to use the approach of reverse traversing a linked when using a
@@ -229,7 +228,7 @@ class LinkedList<T> { // with Tail Node
         Integer lastIndex = null;
         Node node = this.head;
         while(node != null) {
-            if(node.value == value) lastIndex = index;
+            if(node.value.equals(value)) lastIndex = index;
             node = node.next;
             index++;
         }
@@ -237,9 +236,10 @@ class LinkedList<T> { // with Tail Node
     }
 
     private Node getNode(int index) {
+        if(index < 0) return null;
         int pointer = 0;
         Node reqNode = this.head;
-        while(pointer < index) {
+        while(pointer < index && reqNode != null) {
             reqNode = reqNode.next;
             pointer++;
         }
@@ -257,10 +257,4 @@ class LinkedList<T> { // with Tail Node
         out.append("END");
         return out.toString();
     }
-}
-
-// Implementing Linked List and related operations with only the head Node:
-
-class LinkedListH<T> {
-
 }
