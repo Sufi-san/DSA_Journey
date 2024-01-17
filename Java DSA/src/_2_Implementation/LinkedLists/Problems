@@ -1,0 +1,89 @@
+
+Q.1) Remove Duplicates From Sorted List: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+
+Q.2) Merge Sorted Lists: https://leetcode.com/problems/merge-two-sorted-lists/
+
+Q.3) Linked List Cycle: https://leetcode.com/problems/linked-list-cycle/
+SOL:
+    Fast & Slow Pointer Method -
+        Mainly used for:
+            i) Cycle Detection
+            ii) Landing on a Node
+
+        The Idea:
+            - We have two pointers while traversing the linked list, one slow and one fast
+            - The 'slow' pointer moves ahead one node at a time
+            - The 'fast' pointer in contrast, moves ahead two nodes at a time
+            - If a cycle exists then it is necessary that the 'slow' and 'fast' pointer will at
+              some point, meet at the same node. In such situation the existence of a cycle is
+              confirmed.
+            - If there exists no cycle, the 'fast' pointer will encounter a 'null' node and we
+              determine that there is no cycle.
+
+Q) How can we find the length of the cycle?
+SOL:
+    Once the fast and slow pointer meet at a node, we make the fast pointer idle and move the slow
+    pointer while counting the number of nodes
+    The slow pointer will keep on moving until it reaches the fast pointer again and we will now
+    know the length of the cycle
+
+Q.4) Linked List Cycle 2: https://leetcode.com/problems/linked-list-cycle-ii
+SOL:
+    The below steps are to be followed when we know that the list contains a cycle.
+    Considering we have found the length of the linked list cycle i.e. 'l'
+    And the cycle starts after 'k' steps
+    Then the total length or the number of unique steps or unique nodes in the linked list,
+        = k + l
+
+    Now, as we want to find the start node of the linked list cycle we need to find 'k'.
+    So we use one node 's1' and second node 's2' both of which initially point to the head.
+    We do 's2 = s2.next', 'l' times.
+    Then we do 's1.next' and  's2.next' till 's1 == s2'.
+    The node on which s1 points to the same node as s2 is the required node where the cycle starts.
+
+    Why does it work??
+    Once we take 'l' steps with the node 's2', the remaining steps considering the total length,
+        = (k + l) - l
+        = k
+    Thus, we indirectly find 'k' such that when 's1' starts from head and 's2' starts after 'l' steps,
+    they will become equal after exactly 'k' steps and the node at which they meet is the required
+    node.
+
+Q.5) Happy Number: https://leetcode.com/problems/happy-number/
+
+Q.6) Middle of the Linked List: https://leetcode.com/problems/middle-of-the-linked-list/
+
+Q.7) Sort List: https://leetcode.com/problems/sort-list
+SOL:
+    Involves use of Merge Sort algorithm, finding the middle of the linked list as well as merging
+    two sorted lists.
+    Though Merge Sort and Quick Sort are the preferred sorting algorithms, we can also use other
+    Sorting Algorithms as well.
+
+Q.8) Reverse Linked List: https://leetcode.com/problems/reverse-linked-list
+SOL:
+    A very basic yet important question that compels us to understand reversal of linked list both
+    iteratively and recursively.
+    The most important takeaway is the use of 3 pointer approach (for me these are, 'prev', 'current' & 'temp')
+    to easily reverse the list in one-pass + O(N) time + O(1) space
+
+Q.9) Reverse Linked List 2: https://leetcode.com/problems/reverse-linked-list-ii/
+
+Q.10) Palindrome Linked List: https://leetcode.com/problems/palindrome-linked-list/
+
+Q.11) Reorder LinkedList: https://leetcode.com/problems/reorder-list
+
+Q.12) Reverse k-Nodes in LinkedList: https://leetcode.com/problems/reverse-nodes-in-k-group/
+SOL:
+    Another important question where the 'k' nodes are reverse at a time.
+    Requires understanding of connecting the:
+        Processed List -> Newly Processed 'k' node List -> Unprocessed List
+
+Q.13) Reverse Alternate k-Nodes in LinkedList: https://www.interviewbit.com/problems/reverse-alternate-k-nodes/
+SOL:
+    A simple twist on question 12, the only additional code required is to move the required pointer
+    ahead 'k' times at the end or start of each iteration before reversing the next list interval
+
+Q.14) Rotate LinkedList: https://leetcode.com/problems/rotate-list/
+
+

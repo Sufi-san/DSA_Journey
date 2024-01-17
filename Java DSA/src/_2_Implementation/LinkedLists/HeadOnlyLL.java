@@ -189,7 +189,7 @@ class LinkedListH<T> {
         return node;
     }
 
-    private Node getNode(int index) {
+    private Node getNode(int index) { // non-private to use in other classes
         if(index < 0) return null;
         Node node = this.head;
         int pointer = 0;
@@ -198,6 +198,67 @@ class LinkedListH<T> {
             pointer++;
         }
         return node;
+    }
+
+    // Methods for later use:
+
+    void insertRec(int index, T value) {
+        if(index < 0) throw new IndexOutOfBoundsException();
+        this.head = insertRec(index, value, this.head);
+    }
+
+    private Node insertRec(int index, T value, Node node) {
+        if(node == null && index != 0) throw new IndexOutOfBoundsException();
+        if(index == 0) return new Node(value, node);
+        node.next = insertRec(index - 1, value, node.next);
+        return node;
+    }
+
+    // List Reversal:
+    // Method 1: using only one node while traversing
+    void recReverse() {
+        if(this.head == null || this.head.next == null) return;
+        Node lastNode = recReverse(this.head);
+        // As the return type is 'Node' recReverse will return a node though not important in completion of reversal
+        if(lastNode != this.head) System.out.println("List Reversed Successfully"); // Making some use of lastNode
+    }
+
+    Node recReverse(Node node) {
+        if(node.next == null) this.head = node;
+        else {
+            Node nextNode = recReverse(node.next);
+            nextNode.next = node;
+            node.next = null;
+        }
+        return node;
+    }
+
+    // Method 2: using a node and the node before it in arguments
+    void recReverse2() {
+        if(this.head == null) return;
+        recReverse2(null, this.head);
+    }
+
+    void recReverse2(Node prev, Node node) {
+        if(node == null) {
+            this.head = prev;
+            return;
+        }
+        Node temp = node.next;
+        node.next = prev;
+        recReverse2(node, temp);
+    }
+
+    // Method 3: Iterative Reversal that uses logic similar to Method 2
+    void iterReverse() {
+        Node prev = null, node = this.head;
+        while(node != null) {
+            Node temp = node.next;
+            node.next = prev;
+            prev = node;
+            node = temp;
+        }
+        this.head = prev;
     }
 
     @Override
