@@ -1,7 +1,7 @@
 package _2_Implementation.StacksNQueues;
 
-public class UsingCustoms {
-    public static void main(String[] args) {
+public class UsingCustomStacks {
+    public static void main(String[] args) throws Exception{
         // Always need capacity for static stack, if none is passed then the DEFAULT_CAPACITY (10) will be used
         CustomStaticStack<String> customStringStack = new CustomStaticStack<>();
         System.out.println(customStringStack.getCapacity() + "\n");
@@ -20,7 +20,7 @@ public class UsingCustoms {
             System.out.println(", Stack Capacity: "+customStack.getCapacity()+", Items in stack: "+customStack.size());
         }
         System.out.println(customStack + "\n");
-        for(int i = 0; i < 12; i++) {
+        for(int i = 0; i < 12; i++) { // Checking pop method and FILO principle
             Integer num = customStack.pop();
             if(num != null) System.out.print("Popped "+num);
             else System.out.print("Pop failed");
@@ -32,6 +32,27 @@ public class UsingCustoms {
         else System.out.println("Stack Empty");
 
         // Testing Custom Dynamic Stack Implementation
-
+        System.out.println();
+        CustomStack<Integer> dynaStack = new CustomStack<>();
+        System.out.println(dynaStack.getCapacity()); // checking default constructor and getCapacity method
+        System.out.println();
+        CustomStack<Integer> dynaStack1 = new CustomStack<>(15);
+        System.out.println(dynaStack1);
+        System.out.println();
+        for(int i = 1; i <= 20; i++) dynaStack1.push(i); // checking dynamic nature, 20 > 15
+        System.out.println(dynaStack1 + "\n");
+        for(int i = 0; i < 2; i++) System.out.println(dynaStack1.peek()); // checking peek
+        System.out.println();
+        for(int i = 0; i < 20; i++) { // checking pop
+            System.out.print(dynaStack1.pop() + " ");
+        }
+        System.out.println();
+        // System.out.println(dynaStack1.pop()); // will throw exception
+        System.out.println("\n" + dynaStack1.peek() + "\n"); // will return null
+        for(int i = 0; i < 15; i++) {
+            dynaStack.push(i + 1);
+            System.out.print(dynaStack + ", ");
+            System.out.println("Elements in stack: "+dynaStack.size()+", Stack Capacity: "+dynaStack.getCapacity());
+        }
     }
 }

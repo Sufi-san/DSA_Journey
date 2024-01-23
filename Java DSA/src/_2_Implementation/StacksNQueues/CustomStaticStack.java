@@ -1,8 +1,8 @@
 package _2_Implementation.StacksNQueues;
 
 public class CustomStaticStack<T> {
-    private final Object[] arr;
-    private int size; // this will serve as the pointer for insertion and removal
+    protected Object[] arr;
+    protected int size; // this will serve as the pointer for insertion and removal
     private static final int DEFAULT_CAPACITY = 10;
 
     CustomStaticStack() {
@@ -16,27 +16,27 @@ public class CustomStaticStack<T> {
     }
 
     // Returns true on successful insertion
-    boolean push(T element) {
+    public boolean push(T element) {
         if(size == arr.length) return false;
         this.arr[size++] = element;
         return true;
     }
 
     // Removes the top element from the stack and returns it
-    T pop() {
+    public T pop() throws Exception { // The child class will throw the exception
         if(size == 0) return null;
         return (T) this.arr[--size];
     }
 
     // Returns the top element without removing it from the stack
-    T peek() {
+    public T peek() {
         if(size == 0) return null;
         return (T) this.arr[size - 1];
     }
 
     // getters for size and capacity
-    int size() {return this.size;}
-    int getCapacity() {return this.arr.length;}
+    public int size() {return this.size;}
+    public int getCapacity() {return this.arr.length;}
 
     // overriding toString method for printing
     @Override
