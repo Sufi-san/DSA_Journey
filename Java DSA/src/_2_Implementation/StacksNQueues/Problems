@@ -1,0 +1,78 @@
+
+Q.1) Implement Queue using Stack: https://leetcode.com/problems/implement-queue-using-stacks/description/
+SOL:
+     Made use of 2 instances of the predefined Stack class in Java to successfully implement a simple queue
+     Such a queue can be either 'push-efficient' or 'pop-efficient' but not both at the same time.
+     The 'efficiency' is determined by which operation can be done in constant time without making use of
+     the second stack.
+
+Q.2) Game of 2 Stacks: https://www.hackerrank.com/challenges/game-of-two-stacks/problem
+SOL:
+    The greedy approach would be to take the minimum of the top elements of both stacks every time.
+    But that fails as we do not know the values of elements below the top element !!
+    It might be possible that all values below a large top element might be very small and might result
+    in more number of possible moves.
+
+    Next is the brute force approach of trying all possibilities using recursion at every call, we consider
+    the outcome of removing more elements from the same stack or the second stack while keeping in mind the
+    overall maximum sum restrictions and selecting the possibility that results in the maximum number of moves.
+    The brute force approach I came up with was implemented as:
+        public static int twoStacks(int maxSum, List<Integer> a, List<Integer> b) {
+            // Write your code here
+                return twoStacks(a, b, maxSum, 0, 0);
+            }
+
+        static int twoStacks(List<Integer> a, List<Integer> b, int maxSum, int aInd, int bInd) {
+            int moves1 = 0, moves2 = 0;
+            if (aInd < a.size() && (maxSum - a.get(aInd) >= 0)) {
+                moves1 = 1 + twoStacks(a, b, maxSum - a.get(aInd), aInd + 1, bInd);
+            }
+            if (bInd < b.size() && (maxSum - b.get(bInd) >= 0)) {
+                moves2 = 1 + twoStacks(a, b, maxSum - b.get(bInd), aInd, bInd + 1);
+            }
+            return Math.max(moves1, moves2);
+        }
+
+    There is also the dynamic approach but at present, neither am I aware of Dynamic programming concepts nor
+    am I starting to learn those concepts and hence I cannot currently further optimise the solution.
+    Maybe I will learn about dynamic programming and get back to this problem to find a more optimal solution
+    in future.
+
+Q.3) Largest Rectangle in Histogram: https://leetcode.com/problems/largest-rectangle-in-histogram/description/
+SOL:
+     (codes available in Leetcode solution Submissions list for this problem)
+     Brute Force Solution: (Gives Time Limit Exceeded)
+
+        Basically, for every particular index (histogram) we move from current index to the left until another
+        histogram of lesser or equal value is found and all the while we keep increasing the area by the height
+        of the histogram. This same process is repeated for the elements to the right.
+        The obtained area is then compared to the acquired largest area so far and the maximum one is saved
+
+     Optimized using Stack:
+         We use stack to keep track of indices of an ascending order of histograms throughout the collection and
+         for any in-between histograms that do not follow the ascending rule, we calculate the area for them on
+         the spot using the limits 'i' (current histogram we are at) and the top element of the stack (stack.peek(),
+         that is the histogram index below the currently popped histogram index) and compare it to the last largest
+         area found.
+         This leaves us with the possibility of an ascending order of histogram indices still left inside the stack.
+         We know that these histograms have areas that extend fully up till the last histogram and these areas start
+         from the histogram whose index is stored directly below them inside the stack.
+         Using these limits we again calculate the remaining areas for each histogram inside the stack while comparing
+         them each time to the largest area.
+         When the stack is emptied, we return the last largest area found.
+
+Q.4) Valid Parentheses: https://leetcode.com/problems/valid-parentheses/
+
+Q.5) Minimum Add to Make Parentheses Valid:
+     https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/description/
+
+Q.6) Minimum Insertions to Balance a Parentheses String:
+     https://leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/description/
+SOL:
+    Unlike the parentheses questions encountered before, this one turned out to be quite complex due to various
+    different possibilities occurring inside the algorithm and affecting the current state of both
+    the stack and the answer(insertions) in different ways.
+    After much thought and a little hints, I was barely able to come up with a solution that worked
+    for all test cases.
+    For ease in future watch for better understanding first: https://www.youtube.com/watch?v=PEKAlnmbBCc
+
