@@ -1,0 +1,267 @@
+
+
+    What is a Tree?
+    - A tree is a data structure that consists of a collection of nodes starting from the single root
+    node and developing into multiple branches connected to more nodes and lastly the leaf nodes.
+    - Thus, in trees there exist different levels for a group of nodes.
+    - The 'Nodes' in trees contain a 'value' of any type and addresses to multiple other nodes of the
+    same type. (In case of linked list, we had only a single node connection)
+    - The nodes from which other nodes originate are the 'parent node' to the originating nodes, while
+    the ones that originate are the 'child node' of these parent nodes.
+    - The root node is present at the topmost tree level and is the parent of all nodes inside the tree
+    - The leaf nodes are at the bottom-most level and have no children
+    - The links that join all these nodes together are known as branches
+    - Only the parent nodes can address their children while child nodes cannot address their parents
+
+    Why use Trees?
+    - Trees are used to model hierarchical structures and allow easy visualisation of parent-child
+    relationships.
+    - Another reason is to be able to add, remove, insert or search inside a structure efficiently.
+
+    Where are Trees used?
+    - File Systems
+    - Databases
+    - Network Routing Algorithms
+    - Solving Complex Mathematical Problems
+    - Decision Trees (Machine Learning)
+    - Compression of Files
+    - Other Data Structures (Heaps, Graphs)
+
+    Binary Trees
+    - Binary Trees are trees such that each node can have 0, 1 or 2 child nodes
+    - The benefit of binary trees is that we can add, remove, insert or search for items in 'O(logN)'
+    time.
+    - Binary trees can provide 'ordered storage' in a such a way that no complete restructuring of the
+    data structure is required.
+
+    Binary Tree limitation
+    - In a case where every node has a single child, we form a linear linked-list like structure and
+    the traversal complexity becomes 'O(N)'. The tree formed in such a case is an 'Unbalanced' Binary
+    Tree.
+    - Binary Tree can be inefficient for sorted data
+    - How to solve the problem?
+      1) We make sure that the tree is 'balanced' all the time.
+      2) At any point in time, the difference in height should be -1, 0 or 1 on both sides of the root
+      3) Create Binary Trees such that they balance themselves based on above criteria, these trees
+      are called 'Self-Balancing' Binary Trees or 'AVL' trees.
+
+    Properties:
+    1. Tree Size = Number of Nodes
+    2. Child-Parent Relationship
+    3. Sibling Relationship (same parent)
+    4. Edge (the line connecting two nodes)(branch)
+    5. Tree Height = Maximum Number of edges between selected node to any connected leaf node
+    6. Tree Level = Height of root - height of node (level of root is always 0 i.e the first level)
+    7. Ancestor = A higher level node is an ancestor of a lower level node, if it resides inside the path
+                  from root node to lower level node.
+    8. Descendant = If a higher level node is the ancestor of a lower level node, then the lower level node
+                    is the descendant of the higher level node.
+    9. Degree = (IMP for graphs) number of child nodes originating from selected node
+
+    Types of Binary Trees:
+    1. Complete Binary Tree:
+        - Tree contains maximum number of possible nodes at all levels, except the last level
+        - If a new level node is filled before all previous levels have maximum possible nodes then the
+          resulting tree is NOT a complete binary tree
+        - If a node has less than 2 children and an adjacent node on that same level is assigned a child
+          then again, the resulting tree is NOT a complete binary tree
+        - Again if a node is given a right child before it has a left child, the tree is NOT complete
+          binary tree
+        - Can be used in Heaps
+
+    2. Full / Strict Binary Tree:
+        - Each node has either 0 or 2 children, no node has a single child
+        - Nodes that have '0' children are always the leaf nodes
+        - This is actually used in Compression and Huffman Coding
+
+    3. Perfect Binary Tree:
+        - All internal nodes have 2 children and all leaf nodes are on the same level
+
+    4. Height Balanced Binary Tree:
+        - For 'N' nodes, if the height or depth of binary tree is logN, it is height balanced.
+        - AVL or Red & Black Trees are Height Balanced.
+
+    5. Skewed Binary Tree:
+        - Every node has only one child. Height is 'N' for 'N' nodes. E.g: Linked List
+
+    6. Ordered Binary Tree:
+        - Every node follows some property. E.g: Binary Search Tree (Left child smaller, Right child bigger)
+
+
+    Some Important Properties:
+    1. Total number of nodes in perfect binary tree is (2 ^ (height + 1)) - 1
+    2. Leaf Nodes in perfect binary tree is 2 ^ height
+    3. If a binary tree has 'N' leaf nodes, LEAST number of levels = logN + 1
+    4. For a strict/full binary tree with 'N' leaf nodes, number of internal nodes is N - 1
+    5. No. of leaf nodes = 1 + Number of internal nodes with 2 children apart from root node
+
+
+    Binary Search Trees
+    - Binary Search Trees are a type of binary tree where a rule is always followed while maintaining
+    the tree structure
+    - If the value assigned to a child node is less than that of a parent node, then that particular
+    node will always be the linked on the left hand side.
+    - Similarly for greater values, child node will be linked on the right hand side.
+    - This rule will never change and stays the same for all nodes and new input nodes.
+
+    Implementation:
+    1. Linked Representation (Connecting object nodes just like Linked Lists)
+    2. Sequential Representation (Representing using Arrays, mostly inefficient but can be useful in Heaps)
+       Eg:     5
+            /      \
+           6         8
+          /  \      /
+         9   null  11
+       Assigning indices from top to bottom and left to right we get: [5, 6, 8, 9, null, 11]
+
+
+    Tree Traversals Methods:
+
+    1. Pre-order: Parent - Left Child - Right Child
+       Applications -
+       - Evaluating Math Expressions
+       - Making a copy
+       - Serialization (Tree to Array or vice versa)
+
+    2. In-order: Left Child - Parent - Right Child
+       Applications -
+       - Used for visiting Binary Search Tree nodes in sorted order
+
+    3. Post-order: Left Child - Right Child - Parent
+       Applications -
+       - Deleting Binary Tree (removing all children before removing main or root node)
+       - For performing bottom-up calculations (estimation of work at the lowest possible level of detail)
+
+
+    Problem with Binary Search Tree:
+    - In any binary search tree, for every single node, the difference of height in left and right subtree
+      should not exceed 1 in magnitude (can be 0 or 1 or -1).
+    - The above condition needs to be fulfilled so that the operations we perform, truly take about logN time.
+    - If we provide data to the tree in sorted or partially sorted form, there is the risk of the above
+      condition not being fulfilled.
+
+    Solution for the above problem: Using AVL (Adelson - Velskii - Landis) Trees (Self-Balancing)
+    - In AVL trees, some nodes are moved around to adjust its height.
+
+    Algorithm for AVL: (See Kunal Notes for better visualisation)
+    1. Insert Normally, node 'N'
+    2. Start from node 'N', start from bottom (in this case node N) and work above to find unbalanced node
+       Select the unbalanced node as 'P', one of its direct child as 'C' and the direct child's child as 'G'
+       and all other attachments as subtrees. Subtrees can be 't1', 't2', 't3', 't4' ...
+       As we start from bottom, and move up, we already know that subtrees below 'C' or 'G' are balanced.
+       Also, the whole idea of AVL Trees tells us that the rest of the tree is completely balanced, except
+       one unbalanced node.
+    3. Using one of the '4 Rules'(discussed later), rotate the tree nodes to make the tree balanced.
+
+    *** The 4 Rotation Rules for Self-Balancing Binary Trees ***
+    These are based on all the 4 cases encountered for unbalanced subtrees and the position of 'P', 'C' and 'G'
+    in the chain
+    1. Left - Left (Parent -> Child (Left) -> Grandchild (Left)):
+        Case:   |------>t1
+                P
+                |       |------>t2
+                |------>C
+                        |       |------>t3
+                        |------>G
+                                |------>t4
+       - Requires 1 right rotation on Parent - Child connection such that:
+                        |------>t1
+                |------>P
+                |       |------>t2
+                C
+                |       |------>t3
+                |------>G
+                        |------>t4
+
+    2. Left - Right (Parent -> Child (Left) -> Grandchild (Right))
+       Case:    |------>t1
+                P
+                |               |------>t2
+                |       |------>G
+                |       |       |------>t3
+                |------>C
+                        |------>t4
+       - Requires 1 left rotation on Child - Grandchild connection
+               |------>t1
+               P
+               |
+               |       |------>t2
+               |------>G
+                       |       |------>t3
+                       |------>C
+                               |------>t4
+       - Followed by 1 right rotation same as case 1 but now on Parent - Grandchild connection
+                        |------>t1
+                |------>P
+                |       |------>t2
+                G
+                |       |------>t3
+                |------>C
+                        |------>t4
+
+    3. Right - Right (Parent -> Child (Right) -> Grandchild (Right))
+       - Mirror of Case 1 on the Right Side
+
+    4. Right - Left (Parent -> Child (Right) -> Grandchild (Left))
+       - Mirror of Case 2 on the Right Side
+
+    Time Complexity of Self-Balancing Process:
+    O(logN) -> Traversing till leaf node of the tree
+    +
+    O(1) -> Performing a constant amount of steps for rotation
+    = O(logN) + O(1) = O(logN)
+
+
+    Segment Trees:
+        Useful for performing functions or queries on a range.
+        - Sum of range
+        - Product of range
+        - Max or Min or Avg in range
+        These procedures generally take O(N) time, but using segment trees we can complete them in
+        O(logN) time.
+        The arrays might update, so we need to update the segment tree too, we can do this too in
+        O(logN) time.
+
+        What is a Segment Tree?
+        - A binary tree which has information about both the interval as well as the operation
+        - It is a Full Binary Tree (N leaf nodes, N - 1 internal nodes, 2N - 1 total nodes)
+        - The first (Root) Node contains a result (based on operation) for the full range
+        - It is then divided into 2 nodes where the range is halved and results change accordingly
+        - The process is repeated for each node until only the leaf nodes with 1 element range are left
+        - Although creating the tree will take O(N) time, the later updates and queries will be done
+          in O(logN) time
+
+        Eg: Sum of ranges will be the operation
+            a = {3, 8, 7, 6, -2, -8, 4, 9}, N = 8
+                                   |----------->(13, (6, 7)) ....
+                |------------>(3, (4, 7))
+                |                  |----------->(-10, (4, 5)) ....
+            (27, (0, 7))
+                |                  |----------->(13, (2, 3)) ....
+                |------------>(24, (0, 3))
+                                   |----------->(11, (0, 1)) ....
+            Note: Here the ranges indicate the portion of array inside each node.
+            Whenever an answer within a specific range is required, we traverse through the segment tree
+            to collect and add up the results of ranges that merge into the answer for our required range.
+            Say, we want sum of numbers in range of indices (2, 6)
+            From segment tree we get:  Sum(2, 3) -> 13 + Sum(4, 5) -> -10 + Sum(6, 6) -> 4 = 13 - 10 + 4 = 7
+            Cases encountered while searching:
+            1. Required range fully overlaps node range, return the node's result
+            2. Required range does not overlap with node range ignore the node and its children
+            3. Required range partially overlaps with with node range, query its 2 child nodes
+
+        The disadvantage of this approach is the extra space occupied
+
+        Updating Segment trees in O(logN) time:
+        - Check whether index lies in interval
+          If Yes, then visit its children to eventually reach the leaf node where change is necessary.
+          If not, then return the result in the node and ignore its children.
+        - While retracing the path from the leaf node back to the root node, all the nodes that fall in the path
+          will also require an update. The result returned from 'NOT' condition above will be useful in updating
+          the path nodes.
+
+
+    Types of Searches in Trees:
+
+    1. Breadth First Search (BFS)
+    2. Depth First Search (DFS)
