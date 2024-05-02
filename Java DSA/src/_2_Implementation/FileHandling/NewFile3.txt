@@ -1,0 +1,9 @@
+Third File's First Line
+Third File's Second Line
+Third File's Third Line
+Third File's Fourth Line
+Third File's First Line
+Third File's Second Line
+Third File's Third Line
+Third File's Fourth Line
+(This is appended content) New Content has successfully been added to the file.
