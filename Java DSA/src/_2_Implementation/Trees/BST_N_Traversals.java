@@ -1,5 +1,6 @@
 package _2_Implementation.Trees;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 
 public class BST_N_Traversals { // Binary Search Tree
@@ -26,19 +27,8 @@ public class BST_N_Traversals { // Binary Search Tree
 }
 
 class BSearchTree {
-    protected static class Node {
-        int value;
-        Node left;
-        Node right;
-        int height;
 
-        Node(int value) {
-            this.value = value;
-            this.height = 0;
-        }
-    }
-
-    Node root;
+    Node_BST root;
     BSearchTree() {
         root = null;
     }
@@ -49,7 +39,7 @@ class BSearchTree {
 
     void insert(int value) { // for single value
         if(this.isEmpty()) {
-            this.root = new Node(value);
+            this.root = new Node_BST(value);
             return;
         }
         insert(value, root);
@@ -71,35 +61,34 @@ class BSearchTree {
         insertSorted(arr, mid + 1, end);
     }
 
-    protected void insert(int value, Node node) {
+    protected void insert(int value, Node_BST node) {
         if(value <= node.value) {
-            if(node.left == null) node.left = new Node(value);
+            if(node.left == null) node.left = new Node_BST(value);
             else insert(value, node.left);
         }
         else {
-            if(node.right == null) node.right = new Node(value);
+            if(node.right == null) node.right = new Node_BST(value);
             else insert(value, node.right);
         }
         node.height = nodeHeight(node);
     }
 
-    static int nodeHeight(Node node) {
+    static int nodeHeight(Node_BST node) {
         if(node == null) return -1;
         int hLeft = (node.left != null)? node.left.height: -1;
         int rLeft = (node.right != null)? node.right.height: -1;
         return Math.max(hLeft, rLeft) + 1;
     }
 
-    int height() {
-        if(root == null) return -1;
-        return root.height;
-    }
-
     void printTree() {
         display(root, 0);
     }
 
-    void display(Node node, int level) {
+    void display() {
+        display(this.root, 0);
+    }
+
+    private void display(Node_BST node, int level) {
         if(node == null) return;
         display(node.right, level + 1);
         if(level != 0) {
@@ -119,7 +108,7 @@ class BSearchTree {
         System.out.println(" (Preorder)");
     }
 
-    void preOrder(Node node) {
+    void preOrder(Node_BST node) {
         if(node == null) return;
         System.out.print(node.value+" ");
         preOrder(node.left);
@@ -135,7 +124,7 @@ class BSearchTree {
         System.out.println(" (Inorder)");
     }
 
-    void inOrder(Node node) {
+    void inOrder(Node_BST node) {
         if(node == null) return;
         inOrder(node.left);
         System.out.print(node.value+" ");
@@ -151,19 +140,31 @@ class BSearchTree {
         System.out.println(" (Postorder)");
     }
 
-    void postOrder(Node node) {
+    void postOrder(Node_BST node) {
         if(node == null) return;
         postOrder(node.left);
         postOrder(node.right);
         System.out.print(node.value+" ");
     }
 
+    void BFS() {
+        ArrayDeque<Node_BST> ad = new ArrayDeque<>();
+        ad.push(this.root);
+        System.out.print("\nBFS Sequence: ");
+        while(!ad.isEmpty()) {
+            Node_BST node = ad.poll();
+            if(node.left != null) ad.add(node.left);
+            if(node.right != null) ad.add(node.right);
+            System.out.print(node.value+" ");
+        }
+        System.out.println();
+    }
 
     boolean balanced() {
         return balanced(root);
     }
 
-    private boolean balanced(Node node) {
+    private boolean balanced(Node_BST node) {
         if(node == null) return true;
         int leftH = nodeHeight(node.left);
         int rightH = nodeHeight(node.right);

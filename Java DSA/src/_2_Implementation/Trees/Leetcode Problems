@@ -1,0 +1,85 @@
+Q.1) Binary Tree Level Order Traversal (Leetcode)
+->  Used BFS with the help of queue
+    Queue size after each iteration is the number of nodes at each level
+    DFS was faster...
+    by passing the answer ArrayList() and current level through the recursive function.
+
+Q.2) Average of Levels in Binary Tree (Leetcode)
+->  Same concept as above question.
+    This time, there was no need for storing the level's nodes in each iteration.
+
+Q.3) Level Order Successor of a Node (Google)
+->  Same concept as previous two questions.
+    Just with a flag to know when to select an element in the queue as a successor.
+
+Q.4) Binary Tree Zigzag Level Order Traversal (Leetcode)
+->  Same approach with alternate reversal of level list.
+    We can also make use of a Dequeue (Double ended queue) and for reverse levels, we just
+    remove nodes from the 'rear' end of the queue and then add the node's children from the
+    'front' end where, we enter the right child first and left child second.
+    There won't be any conflicts as the amount of time the removal happens stays the same
+    due to the saving and using of previous queue size.
+
+Q.5) Binary Tree Level Order Traversal 2 (Leetcode)
+->  Different from previous problem as although we can use Level Order Traversal (BFS), it
+    requires us to solve in constant space given that the binary tree is perfect and has
+    all leaf nodes present at the last level.
+    We can use Recursion as implicit stack space won't count as extra space.
+
+    Recursive Solution: (Make use of the 'next' connection)
+    We pass the nodes recursively, make left child point to right child and the right child
+    will point to 'null' if parent(node) has no sibling else it points to the parent's sibling's
+    left child. The recursion is then completed by once passing the left child and then the
+    right child into the same function.
+
+    Iterative Solution:
+    Here we make use of the 'next' links as well as perform DFS on the left-first branch of the
+    perfect binary tree.
+    We use the parent node, to create all the links in the lower level.
+    After that we make the left-most start node of the lower level (left child of previous parent)
+    the new parent. This parent is now connected to its siblings via the 'next' link.
+    We iteratively repeat the process of connecting the lower level nodes using parent nodes
+    while also switching the parent node by its siblings (via next) each time.
+    This process is repeated for all nodes in the left-most branch of the tree and we stop when we
+    find that the current parent has no left child (leaf node reached).
+
+Q.6) Binary Tree Right Side View
+->  Same approach of BFS, taking last element of the level.
+
+Q.7) Cousins in Binary Tree
+->  Same approach of BFS, this time we first check whether the children of the current node (that
+    are basically siblings, not cousins) are equal to x and y or y and x. If they are, we directly
+    return false.
+    If they are not, then in the later part, we check whether we have found either X or Y on the
+    current level.
+    If even one of them is found we break the loop and return the status.
+    We have already made the check to ensure these are not direct siblings.
+    So, if we have found x and y on the same level, we return true.
+    If only one of them was found on that level means they are not cousins and we return false.
+
+Q.8) Symmetric Tree
+->  We have to check whether the left subtree attached to the root is a mirror image of the right
+    subtree.
+
+    Approach 1: Using DFS with 2 nodes as parameters in the recursive function
+    What I did earlier was DFS on the left and right subtree separately, save the sequence as a
+    String and then at the end compare the two strings.
+    The better and more optimized approach is to use 2 nodes as parameters in the recursive function.
+    First we handle the null conditions.
+    Second we check whether the values of the current two nodes match.
+    Third we again recursively check whether left subtree of first node matches the right subtree of the
+    other node as well as whether the right subtree of first node matches the left subtree of second.
+    If all conditions are true, we return true, else false.
+
+    Approach 2: Using BFS but with some tweaking
+    This time the inner loop for checking level nodes will run (levelSize / 2) times as we will be removing
+    2 nodes at once for checking their values.
+    Also at the time of insertion of child nodes we will insert them in the order such that first removed
+    node can be compared with its mirror equivalent in the tree, which will be the second removed node.
+    To achieve this we insert left child of first node, then right child of second node, followed by right
+    child of first node and left child of second node.
+    Note: We need to make sure that 'null' children are entered as well to check for proper mirroring and
+          those children need to be handled separately (due to null pointer) in the inner loop while
+          checking the level.
+
+    P.S: Approach 1 takes less time

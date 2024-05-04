@@ -263,5 +263,20 @@
 
     Types of Searches in Trees:
 
-    1. Breadth First Search (BFS)
-    2. Depth First Search (DFS)
+    1. Breadth First Search (BFS) -
+       It is the act of searching or traversing the nodes of a tree in a level-by-level order.
+       It is the opposite of DFS where one needs to completely explore a branch till the leaf node.
+       In an iterative manner, this can be done using a queue due to its FIFO nature.
+       Before a node is brought out and printed, its children are inserted into the queue.
+       The same logic can be applied when we don't need to print the node value but or use the tree
+       nodes in a 'level-order'.
+
+       BFS Use-cases:
+       i) When goal lies near the root node.
+       ii) When level-wise operations are necessary.
+
+       Time Complexity: O(N)
+       Space Complexity: O(N / 2) -> O(N) ....
+       {N / 2 because the last level of leaf nodes will have N / 2 nodes to be stored inside the queue}
+
+    2. Depth First Search (DFS) -

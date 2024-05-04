@@ -20,7 +20,7 @@ class AVL extends BSearchTree {
     @Override
     void insert(int value) {
         if(this.isEmpty()) {
-            this.root = new Node(value);
+            this.root = new Node_BST(value);
             return;
         }
         this.root = insertBalanced(value, this.root);
@@ -29,15 +29,15 @@ class AVL extends BSearchTree {
     // The reason for overriding above method and creating the new insertBalanced method with
     // 'Node' return type is that, we want to use the new returned node, to reform and reconnect
     // the tree after the performed rotations, which I was unable to do using a 'void' return type.
-    static Node insertBalanced(int value, Node node) {
-        if(node == null) return new Node(value);
+    static Node_BST insertBalanced(int value, Node_BST node) {
+        if(node == null) return new Node_BST(value);
         if(node.value <= value) node.right = insertBalanced(value, node.right);
         else node.left = insertBalanced(value, node.left);
         node.height = nodeHeight(node);
         return rotate(node);
     }
 
-    static Node rotate(Node node) {
+    static Node_BST rotate(Node_BST node) {
         int l = nodeHeight(node.left), r = nodeHeight(node.right);
         if(Math.abs(l - r) > 1) {
             if(l > r) return rightRotate(node);
@@ -46,8 +46,8 @@ class AVL extends BSearchTree {
         return node;
     }
 
-    static Node rightRotate(Node node) {
-        Node child = node.left;
+    static Node_BST rightRotate(Node_BST node) {
+        Node_BST child = node.left;
         if(nodeHeight(child.left) > nodeHeight(child.right)) {
             node.left = child.right;
             child.right = node;
@@ -60,8 +60,8 @@ class AVL extends BSearchTree {
         return rightRotate(node);
     }
 
-    static Node leftRotate(Node node) {
-        Node child = node.right;
+    static Node_BST leftRotate(Node_BST node) {
+        Node_BST child = node.right;
         if(nodeHeight(child.right) > nodeHeight(child.left)) {
             node.right = child.left;
             child.left = node;
@@ -74,7 +74,7 @@ class AVL extends BSearchTree {
         return leftRotate(node);
     }
 
-    static void setNewHeights(Node node1, Node node2) {
+    static void setNewHeights(Node_BST node1, Node_BST node2) {
         node1.height = nodeHeight(node1);
         node2.height = nodeHeight(node2);
     }
