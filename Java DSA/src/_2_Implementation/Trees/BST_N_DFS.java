@@ -3,7 +3,7 @@ package _2_Implementation.Trees;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 
-public class BST_N_Traversals { // Binary Search Tree
+public class BST_N_DFS { // Binary Search Tree
     // Here we are assuming that all trees will be height balanced and not unbalanced
     // Thus, all operations like, add, insert, delete will have time complexity of logN which will be max tree height
     // given 'N' nodes
@@ -14,6 +14,8 @@ public class BST_N_Traversals { // Binary Search Tree
         BSearchTree bst = new BSearchTree();
         bst.insert(arr);
         bst.printTree();
+
+        // Different DFS Order Traversals
         System.out.println("\nTree Balanced? : "+bst.balanced());
         bst.preOrder(); // Parent - Left - Right
         bst.inOrder(); // Left - Parent - Right

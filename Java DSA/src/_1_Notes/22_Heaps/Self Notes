@@ -1,0 +1,134 @@
+
+Why use Heaps?
+->
+    Eg: Given a sequence of numbers, searching through it for a maximum or minimum value via linear search
+        takes O(N) time.
+        To prevent this, this we can sort the current sequence after entering the new element each time.
+        For returning minimum value, we provide the first element and for the maximum value we provide the
+        last value in the sequence.
+        However, this will increase the time complexity of insertion to O(N * logN).
+
+        But, this insertion time can be reduced. How? ---> Using 'Heaps'
+        We do not need to fully sort the array to always find the maximum / minimum item at the top.
+        The array will have to follow some rules, based on what we want to find (min or max) and by doing
+        that, our insertion / deletion time will become 'logN' (as we will make the array valid as per rules)
+        and the time required for finding wanted item will be 'constant' (on the first index).
+        However, if we want to remove required item rather than just finding it, then that process will again
+        take 'logN' time as we will need restructuring.
+
+    Given a condition or a collection of items, when we need to 'find' the smallest/biggest item in constant time,
+    in such cases we can use a 'Heap'.
+
+What is a Heap?
+->
+    Internally, a heap is an array. But, it will be represented as a tree.
+    Properties & Structure:
+        - It is a Complete Binary Tree. (node inserted from left to right only, all levels except last are full)
+        - Every node value is >= OR <= all of its children depending on max or min heap respectively.
+    Pattern:
+        - Considering 'i' as the index, we know that the index of the parent of index 'i' will always be 'i / 2'.
+          Eg: Index = 5, Index of Parent of element on index '5' = 5 / 2 = 2
+        - From above property we can also state that, for index 'i':
+            Index of left child = i * 2
+            Index of right child = i * 2 + 1
+    So in reality, heap will not internally be a tree, but we will read it like a tree using above properties.
+
+    Patterns for '0-indexed' array system:
+        - Parent index given child index 'i': (i - 1) / 2
+        - Left-child index given parent index 'i': 2 * i + 1
+        - Right-child index given parent index 'i': 2 * i + 2
+
+What happens on insertion?
+->
+    - Insertion will take O(logN) time in heaps.
+    - Every element, at first will be added to the end of the array.
+    - However, we want it to be at the correct place, so we use the property for finding the parent of child.
+    - In this case, the parent index will be, 'current index / 2'.
+    - Next, we compare as per required condition. If it is a max Heap, we check whether parent is smaller than
+      child and if that is true then we swap them. If it is min Heap, we check whether parent is greater than
+      child and do the same.
+    - When the condition is false at any iteration during the insertion, then the element is correctly placed
+      and thus, we stop the insertion.
+    - The worst case would be that we inserted an element that will be the new max or new min for the current
+      array. In that case there will be 'logN' iterations and that is why insertion time complexity becomes
+      'O(logN)'.
+
+What happens on deletion?
+->
+    - Simply remove the element at required index.
+    - Move the element at last index to the current index at which removal occurred.
+    - Now we just traverse downwards while restructuring the array by swapping required parent-child index
+      combinations until no swaps are required anymore or index is out of array scope.
+    Note:
+        Given that a parent has two children, we have 3 elements to compare in total.
+        If required, the swap will occur between the parent and either the 'smallest' or 'largest' of the
+        two children based on value.
+        This is because, we need to ensure that the rule of a parent's two children both being larger or
+        smaller than the parent is followed throughout the heap.
+
+HeapSort:
+    - Keep removing items from the heap and arrange them in an ascending or descending order based on
+      whether it is a max or min Heap.
+    - We keep removing items in this manner till heap becomes empty, at that point sorting stops.
+
+    - Time Complexity: O(N * logN)
+        We will remove 'N' times from the heap and each removal will take 'logN' time.
+        Thus, it will take 'N * logN' time.
+
+    - Space Complexity: O(N)
+
+Priority Queue:
+    - We know that queues work on the FIFO principle
+    - But, if we want to prioritize a certain kind of output based on minimum or maximum, we can create
+      a priority queue, that always keeps the required element on the front, and returns that top element
+      when requested.
+    - As per the above characteristic, and our current understanding of 'Heaps' that return the top priority
+      element (max or min), we know that we can use 'Heap' to implement this principle.
+
+
+More about heap insertions:
+
+Dynamic Insertions -
+
+    When you insert elements one by one into a heap (dynamic insertions), each insertion involves maintaining the
+    heap property (e.g., ensuring the parent is always greater/less than its children in a max/min-heap,
+    respectively).
+    This process typically involves operations like swapping elements and comparisons.
+    Since each insertion requires these operations, and the number of operations can scale with the tree
+    depth (which is roughly logarithmic in the number of elements), the overall time complexity for n
+    insertions becomes O(n * log n).
+
+Heapifying a Pre-existing Array:
+
+    When you have a complete array of elements, you can leverage the heapify algorithm to efficiently convert
+    it into a heap.
+    The heapify algorithm starts from the non-leaf nodes (typically starting from the parent of the last level)
+    and works its way up the tree.
+    For each node, it ensures the heap property holds true by potentially swapping the node with its children
+    if necessary.
+    The beauty of heapify is that the maximum number of comparisons and swaps needed per node is limited
+    (usually a constant number).
+    Since you iterate through the array (roughly n/2 non-leaf nodes in a complete binary tree), the overall
+    time complexity for heapify becomes O(n).
+
+    Process:
+        - Since last level or leaf nodes, do not have children, we exclude them
+        - This can be done by starting from index (n / 2) - 1 as the maximum possible number of leaf nodes
+          in a complete binary tree is (n / 2). [(n / 2) - 1 works for 0-indexed structure]
+        - Now for every index between (n / 2) - 1 to 0 we use the down-heap algorithm to rearrange elements
+          by swapping according to min or max heap.
+
+    Conclusion:
+        - Taking advantage of the structure of heaps, the top levels where more work (traversing more depth)
+          is required have fewer nodes to down-heap. While the lower levels where less work is required have
+          more number of nodes to traverse.
+        - This reduces the steps required to complete the overall process and thus the time-complexity for
+          creating heaps using pre-existing arrays becomes 'O(N)'.
+
+
+
+
+
+
+
+

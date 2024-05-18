@@ -114,25 +114,6 @@
          9   null  11
        Assigning indices from top to bottom and left to right we get: [5, 6, 8, 9, null, 11]
 
-
-    Tree Traversals Methods:
-
-    1. Pre-order: Parent - Left Child - Right Child
-       Applications -
-       - Evaluating Math Expressions
-       - Making a copy
-       - Serialization (Tree to Array or vice versa)
-
-    2. In-order: Left Child - Parent - Right Child
-       Applications -
-       - Used for visiting Binary Search Tree nodes in sorted order
-
-    3. Post-order: Left Child - Right Child - Parent
-       Applications -
-       - Deleting Binary Tree (removing all children before removing main or root node)
-       - For performing bottom-up calculations (estimation of work at the lowest possible level of detail)
-
-
     Problem with Binary Search Tree:
     - In any binary search tree, for every single node, the difference of height in left and right subtree
       should not exceed 1 in magnitude (can be 0 or 1 or -1).
@@ -260,16 +241,18 @@
           will also require an update. The result returned from 'NOT' condition above will be useful in updating
           the path nodes.
 
-
     Types of Searches in Trees:
 
     1. Breadth First Search (BFS) -
        It is the act of searching or traversing the nodes of a tree in a level-by-level order.
        It is the opposite of DFS where one needs to completely explore a branch till the leaf node.
-       In an iterative manner, this can be done using a queue due to its FIFO nature.
+       In an iterative manner, this can be done using a queue due to a queue's FIFO nature.
+       First a node (mostly the root node) is entered into the queue.
        Before a node is brought out and printed, its children are inserted into the queue.
-       The same logic can be applied when we don't need to print the node value but or use the tree
-       nodes in a 'level-order'.
+       The process is repeated until we encounter an empty queue. (as null children won't be inserted)
+       The same logic can be applied when we don't need to print the node value but record the tree's
+       levels by saving & segregating each level's nodes somewhere or basically use the tree nodes in
+       a 'level-order'.
 
        BFS Use-cases:
        i) When goal lies near the root node.
@@ -279,4 +262,62 @@
        Space Complexity: O(N / 2) -> O(N) ....
        {N / 2 because the last level of leaf nodes will have N / 2 nodes to be stored inside the queue}
 
+       The iterative BFS can be converted to a Recursive version by passing the required Queue as a
+       parameter/argument.
+       Another work around would be to first perform a DFS to find max depth (number of levels) and then
+       perform multiple DFS searches in a loop with a level parameter going from max level to required level
+       to print all the nodes at the required level.
+       However, it is better to use the iterative version with queue.
+
+
     2. Depth First Search (DFS) -
+       It is the act of searching or traversing the nodes of a tree in a way that exhausts each branch
+       down to the leaf node, before moving on to the next branch. It is the opposite of BFS that
+       explores all nodes at a tree level before moving towards their children nodes.
+       DFS can be done in numerous ways (Pre-order, In-order, Post-order) according the decided order
+       of visiting/reading/storing nodes of the tree.
+       It can be done recursively by visiting both the left & right child of current node in decided
+       order recursively.
+
+       Time Complexity: O(N)
+       Space Complexity: O(logN) -> will be O(N) if tree is unbalanced
+       {logN because maximum height of a balanced binary tree will be logN}
+
+       Iterative DFS using Stack:
+            - Get the parent node data
+            - Store right child in the stack and visit left child
+            - Repeat till left child is null
+            (Above two steps can be replaced by another way that is to first store the right and then the left child
+             inside the stack and then continue the same process from the top stack node until the stack is fully
+             empty)
+            - Repeat the process again by removing a node from the top of the stack till stack isn't empty
+
+    DFS Tree Traversals Methods:
+
+        1. Pre-order: Parent - Left Child - Right Child
+           Applications -
+           - Evaluating Math Expressions
+           - Making a copy
+           - Serialization (Tree to Array or vice versa)
+
+        2. In-order: Left Child - Parent - Right Child
+           Applications -
+           - Used for visiting Binary Search Tree nodes in sorted order
+
+        3. Post-order: Left Child - Right Child - Parent
+           Applications -
+           - Deleting Binary Tree (removing all children before removing main or root node)
+           - For performing bottom-up calculations (estimation of work at the lowest possible level of detail)
+
+    Can we create a tree based on only ONE of the tree traversals given?
+    - Yes we can, but ONLY using Pre-Order & Post-Order AND if the 'null' values are also accounted for, in the
+      sequence.
+    - In Pre-Order we initiate from the start of the sequence, keep on forming left nodes till a 'null' is encountered
+      and then switch to forming right nodes. When we get two nulls in a row we return without making further calls
+      to either left or right and hence we recursively form the exact tree.
+    - In Post-Order we can either reverse the sequence and initiate from start or we initiate from the end of the
+      sequence. Here we keep forming right nodes till a 'null' is encountered and then switch to forming left nodes.
+      When we get two nulls in a row we return without making further calls, and tree is recursively formed.
+    - We cannot create the exact tree based on an In-Order sequence, as there are multiple possibilities for
+      forming nodes and deciding the root, right-child and left-child.
+

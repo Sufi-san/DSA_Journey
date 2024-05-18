@@ -2,7 +2,6 @@ package _2_Implementation.Trees;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 public class LevelOrderSuccessor {
     public static void main(String[] args) {

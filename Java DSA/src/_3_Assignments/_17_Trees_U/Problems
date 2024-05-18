@@ -6,6 +6,8 @@
 ## (Revisited) indicates whether the question has been revisited and documented if needed. If solution statement is documented, it will be available in 'Solutions' text file.
 ## (*) mark good problems to add in 'Solutions' file and the problem deserves more revisits.
 
+## GFG Questions List: https://www.geeksforgeeks.org/top-50-tree-coding-problems-for-interviews/
+
 ## Easy
 
 - [Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/) `leetcode`

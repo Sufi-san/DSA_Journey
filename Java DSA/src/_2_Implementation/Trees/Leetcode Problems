@@ -83,3 +83,241 @@ Q.8) Symmetric Tree
           checking the level.
 
     P.S: Approach 1 takes less time
+
+Q.9) Diameter of Binary Tree
+->  Perform post order traversals while getting the height of each node as well as maintaining a global
+    variable for diameter at each node.
+
+Q.10) Invert a Binary Tree
+->  Similar post order traversal approach where we make sure that the left and right child of all nodes
+    below are swapped before finally swapping the left and right child of current node.
+
+Q.11) Maximum Depth of Binary Tree
+->  Again the post order approach where we return the maximum of depths of left and right subtree after
+    adding 1 to it, recursively for all nodes.
+
+Q.12) Convert Sorted Array to Binary Search Tree
+->  AVL Trees can be used, but as the Array is already sorted we can use the Binary Search approach while
+    forming the tree nodes.
+
+Q.13) Flatten Binary Tree to Linked List
+->  There are numerous approaches.
+    A kind of brute force approach would be to perform a preOrder Traversal, store the node sequence in a
+    queue and then rejoin the nodes with their left child null, in a skewed fashion.
+    More optimized approaches include forming the linked list while traversing the tree.
+
+    1) Recursively traverse right child to and get its head,
+       then recursively traverse left child and get its head.
+       If left child head does not return null, find its tail.
+       The right child of this tail should be the head of the right child
+       Make the right child of the main node the left child head if its not null, if it is null don't do it.
+       Make the left child null for the main node. (Required step for when the left child is not already null)
+       Repeat this for all nodes. (As it is recursive we go bottom-up, thus return the current node)
+
+    2) Recursive as well as Iterative approach. (Simpler)
+       If left child is not null, find the 'right most' child for the left child. (this will be its tail)
+       This right most node will have its right child as null, so we need to change it now.
+       The right pointer of this right most node will now point to the right child of the main/current node.
+       Now the right child pointer of the main node will point to its left child.
+       Then we make left child pointer point to null.
+       This process will repeat for all successive right nodes. (As left will always be null)
+
+Q.14) Validate Binary Search Tree
+->  Can be solved with a similar Brute Force approach by first obtaining an In-Order traversal sequence list
+    for the given tree and then checking whether all numbers inside the list are in a strictly decreasing order.
+    More Optimised approach:
+    Maintain two parameters 'low' & 'high' and for every node, its value should be greater than low and lesser
+    than high.
+    When going towards left child, the 'high' parameter will change as value of all nodes in left subtree should
+    be less than current node's value.
+    Similarly, for right, the 'low' parameter will change as value of all nodes in right subtree should be greater
+    than current node's value.
+    The initial values and type of 'low' and 'high' variables will depend on the maximum and minimum value a tree
+    node can have.
+
+Q.15) Lowest Common Ancestor of a Binary Tree
+->  Given two nodes 'p' & 'q' that will always exist in the tree, we have to find their common ancestor, given that
+    the nodes can be the descendants of themselves.
+
+    We simply use DFS and go through each tree node while checking whether that node is equal to 'p' or 'q'.
+    If it is equal to even one of them, we return the node.
+    Reason:
+        If we find either 'p' or 'q' we know that the other will lie either below the first (in the same subtree)
+        or above (in a different subtree from other possible ancestor nodes)
+        Returning the node, justifies the first case where the other node lies below the first one as that first
+        node will be the ancestor/descendant of itself as well as the ancestor of the other node below.
+        Note that if the first case is true, then we no longer need to find the second node, as the first node
+        itself is the required answer.
+        The second case will be justified later by the follow up...
+    If it is equal to neither 'p' nor 'q', we check its left subtree and right subtree.
+    As the nodes will always exist in the tree, we will get one of the following results:
+    i) Found 'p' or 'q' in left subtree and 'null' in right subtree.
+    ii) Found 'p' or 'q' in right subtree and 'null' in left subtree.
+    iii) Found 'p' in left subtree and 'q' in right subtree.
+    Results i) & ii) will be handled by returning the node which is not null.
+    Result iii) is the case where the current node is the require node !! It is the common ancestor of both nodes.
+    Result iii) justifies the second case as discussed above, we always return the found node if it is equal to
+    either 'p' or 'q' because we know that even if the other remaining node lies in a different subtree, it will
+    be found eventually and when both 'p' and 'q' are found at a given node, that particular node is the lowest
+    common ancestor.
+
+Q.16) Kth Smallest Element in a BST
+->  We need to maintain 2 values here, first the actual value to be returned and second value that states the
+    rank of the current node we are at.
+
+    Brute force approach would be to perform an In-Order traversal on the BST to get a strictly increasing list
+    of node values and then return 'k - 1'th element from the list (as 'k' is 1-indexed).
+
+    Another approach is to set the value as a global variable, perform DFS and when suitable rank is found, then
+    update the variable with that node's value.
+    Here, we will use, In-Order traversal (Left - Parent - Right) because in a BST all lesser values are on the
+    left subtree and greater ones are on the right subtree.
+    So we keep traversing left till the left child is NOT null and when the left traversal completely ends and
+    control comes back to the point we called left traversal, we subtract 1 from returned 'k' value. (Left)
+    After that we check whether at our current node the rank matches and also that the answer variable has not
+    yet been updated (value of k = 1 AND variable = -1), if true we update answer variable with current node's
+    value. (Parent)
+    If the above case is not true, then if the right child is not null we first decrement k's value and then
+    traverse the right child as the values increase on the right subtree. (Right)
+    at the end of the recursive function we simply return the resultant 'k' value.
+    The required answer variable will be successfully updated with the correct node value.
+
+    To make the above approach simpler, we can take another parameter 'count/rank' and match it with 'k' at
+    every step and increment that extra parameter accordingly. This will allow us to not rely on the complex
+    decrements on 'k'.
+
+Q.17) Construct Binary Tree from Preorder and Inorder Traversal
+->  The start element of the preorder sequence will always be the root.
+    We create the root node off that element and then again search for that element in the inorder sequence.
+    All elements to the left of the root in the inorder sequence will lie in the left subtree while the ones
+    to the right will lie in the right subtree.
+    Now, we work with ranges. We count number of elements to the left in the inorder sequence and we skip
+    that many elements after the current root element in the preorder sequence. This gives us the start of
+    the new preorder sequence range and the end of this preorder range will stay the same. This will be the
+    preorder sequence range for the next 'right' node call.
+    Next, the index of root in the inorder sequence plus 1, will give us the start of the new inorder sequence
+    range and here too, end will stay the same. This is also the new inorder sequence range for the 'right'
+    node call.
+    The remaining portion of the original range, after excluding the 'right-node' range will be the 'left-node'
+    range for 'left' node call.
+    This process is then recursively repeated where we return the node as it is when only a single element is
+    left in both ranges (start == end) and we return null when the start of the range is greater than the end.
+
+    The finding of index root and maintaining ranges can be further optimised with the use of a HashMap
+
+Q.18) Serialize and Deserialize Binary Tree
+->  We need to bring a given tree into a string format and then convert that string back to a tree.
+
+    There are many methods and substitution types possible which may even be more optimal as well, but here is
+    how I did it: (Created a string consisting of only binary data 1s and 0s)
+
+    Serialize:
+        - A complete Pre-Order DFS traversal while also accounting for the 'null' values (this enables us to
+          accurately recreate the tree as 2 subsequent null values will tell when a leaf node has been reached)
+        - Appending first character (0 or 1) where if node is null we append '1' if node then '0'
+        - If node is not null now, there can be negative values, so we append another character (0 or 1) where
+          if number is negative we append '1', if not then '0'.
+        - Next we will always append 4 bits (except for null case) that are actually binary, for how many bits
+          the binary representation of the node value will contain.
+        - 4 bits can represent 0 to 15 in decimal and our node values can contain only a maximum of 10 bits
+          (as given in the problem, node.val >= -1000 and node.val <= 1000).
+        - Now, as indicated by the prior 4 bits we append the binary representation (bits) of the node's value.
+
+    Deserialize:
+        - Again we use Pre-Order DFS to create the tree nodes.
+        - We check first bit to check if it is null, if null then we return null and move on to next bit to
+          check for the same.
+        - If not null we check second bit to see if node's value will be negative.
+        - Then next 4 bits, converted to integer to know the amount of bits to check next to get node's value.
+        - Then we get the required bits, convert them to integer and store it in a newly created node
+        - Due to Pre-Order, the node's next left child chain will be determined by the next bits in the string,
+          which we will get to in the next recursive call and return its result as the current node's left child.
+        - After left calls are done (as indicated by 2 subsequent 'null' nodes), similar process is repeated for
+          current node's right child.
+        - In the end current node is returned.
+        
+Q.19) Path Sum
+->  A Path here is defined as the connection of nodes starting from root nodes to leaf nodes
+    If the sum of the values of all nodes in this collection is equal to the given sum, we return false.
+    This can be done by ensuring that we are at the leaf node and the current sum is equal to given sum.
+    If above condition is true we return true. If leaf node is reached and current sum is not equal to
+    target, we return false. Else if target sum is not equal to current sum but the node is not a leaf
+    node, we make a call to the left child and then the right child and the recursion is completed.
+    If at any time, 'null' is reached, we return false.
+
+Q.20) Sum Root to Leaf Numbers
+->  We maintained a current number, that will start initially from 0.
+    When at a node in the recursive call we multiple the current number by 10 and add the current node's
+    value to it.
+    Next we check whether current node is leaf node, if it is then we return the current number.
+    If not at leaf node, we first create a 'sum' variable and then at the returning result of the left
+    child call and the right child call given that both of them are not null.
+    Lastly the 'sum' is returned and the recursion is completed.
+
+Q.21) Binary Tree Maximum Path Sum
+->
+    This time a path with maximum sum can be any collection of node (even a single node) in midst of the
+    entire tree structure.
+    We maintain a global 'maximum sum' variable.
+    Inside the recursive calls, if node is null we return 0.
+    If not, then first we get the recursive maximum sum from the left child and then from right child.
+    Then we get the maximum of the following and set it as the current value for the global maximum
+    sum variable:
+    i) The global variable's existing value
+    ii) The current node's value
+    iii) The current node's value + max sum from left child path
+    iv) The current node's value + max sum from right child path
+    v) The current node's value + max sum from left child path + max sum from right child path
+    While returning a max path sum result to above calls, we need to make sure that the particular
+    sum is possible by a valid/actual path. So we return a maximum of the following:
+    i) The current node's value
+    ii) The current node's value + max sum from left child path
+    iii) The current node's value + max sum from right child path
+    The reason for taking maximum's this way is because, there can be negative values inside the nodes
+    that might decrease the current sum upon addition.
+
+    A Simpler Approach:
+    - Instead of checking all conditions and maintaining the maximum sum variable as well as the sums
+      from different paths, what we can do is ignore/eliminate negative values.
+    - Ignoring negative values makes the process very simple.
+    - Whenever we get a 'negative' max sum from a left or right call, we simply turn it to zero.
+    - This can be done easily by taking max(zero, obtained max sum from left OR right child).
+    - Next we again take the maximum value from the current global max sum variable and:
+        current node's value + max the sum obtained from left child + max sum obtained from right child
+      This accounts for the complete path circuit passing from the current node as a root.
+    - Now at the end we return the max(left child max sum, right child max sum) + current node val, this
+      is because the upper nodes can take only one of the current paths, so we pass them the max sum path.
+    - In all of the above maximum checks and additions, our global max value will never decrease as we will
+      be ignoring all negative values and take zero in their place.
+
+Q.22) Binary Tree Paths
+->
+    Uses the same logic of checking both children to ensure that a leaf node is reached.
+    We will never encounter a condition where we reach a 'null' as it is given that the root will
+    never be 'null' and we will always make a check for 'null' before calling the function recursively.
+    We can use either String or StringBuilder and also combinations of global variables, object type
+    method parameters and the return type of the recursive function to solve the problem.
+    Strings would be easy by using simple concatenation but we will discuss the complicated StringBuilder
+    approach:
+    Here we take an empty list of strings and a StringBuilder object, both empty initially as the method
+    parameters.
+    Until we reach a leaf node we recursively append current node value to the StringBuilder and finally
+    at leaf node the value is inserted.
+    StringBuilder is a mutable string object and the original string is changed every time so after a
+    particular method call finishes, we need to undo(backtrack) the change made by the call so that we can
+    accurately get future paths.
+
+Q.23) Path Exists in Binary Tree from Root to Leaf (Miscellaneous)
+->  An initial edge case should be covered where when both sequence and the tree are empty then we return true
+    Then we start with recursion.
+    Return false if:
+        i) Reached Node is null
+        ii) Index is out of bounds
+        iii) Current array[index] value does not match current node's value
+    Return true if:
+        Leaf Node is reached and index is the last possible index of array
+    Lastly:
+        At this point we know current node's value is a match so we return calls for further checking
+        Path can be found in: Left child check OR Right child check.
+
+
