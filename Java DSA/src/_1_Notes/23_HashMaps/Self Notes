@@ -211,4 +211,98 @@ Some important Java's Implementation of Hashes:
 
 The Rabin Karp Algorithm for String Matching (based on Hashing):
 
+    Great Explanation (easy and in-depth): https://youtu.be/qQ8vS2btsxI?si=QDq8MPjyObTP8-CU
+
+    Simple string matching takes O(n * m) time
+    Where, n = length of the text being searched
+           m = length of the pattern for which the search occurs
+    This is assuming that we use 2 pointers that highlight a range in the text and the size of the
+    range is equal to the length of the pattern.
+    Every character within the range is matched with corresponding pattern character to find a match.
+    In worse case, this will take O(n * m) time where we move our range pointers by 1 each time till
+    the end pointer becomes equal to 'n' (or start becomes equal to 'n - m') and the portion of letters
+    between start and end are checked in 'm' time.
+
+    The Rabin Karp algorithm:
+    - Instead of comparing the characters, we first compare the hash value of the substring formed by
+    start and end pointer range.
+    - We then compare it with the hash value of our actual pattern.
+    - If these are equal, only then will we perform the character by character search (because hashing
+    is prone to collision) for confirmation.
+    - Probability of a collision is: 1 / length of pattern   ... Universal Hashing
+
+    - The time complexity thus becomes O(n * (cost of hashing) + m)
+      where, the 'cost of hashing', mostly constant time, will repeat 'n - m' times
+      and, 'm' represents the character by character search performed when hash values match
+      Considering constant cost of hashing we get -> O(n + m)
+      However,
+      In worst case where we get too many collisions the complexity can still be:
+        O(n * (cost of hashing) * m) -> O(n * m).
+
+    - To make sure that hash value is calculated in constant time we make use of:
+
+      'Rolling-Hash Function' -
+      While performing the 'sliding window' operation by incrementing our start and end pointers
+      2 things happen:
+            i) The current first character in the window is removed
+           ii) The next character at end is added as the new end character for substring
+
+      We make use of this property to create a 'constant-time' operation for generating hashes of
+      next substrings.
+      We use a hash functions to first generate a hashcode for the first substring (at start = 0 and
+      end = length of pattern)
+
+      This same hash will now be updated throughout the traversal instead of creating a new hash.
+      The update to the hash occurs as:
+        - Remove contribution of previous first letter
+        - Add contribution of the new end letter
+
+      For Rolling Hash function we first select a base which will be used for both the initial hash and
+      the subsequent updated hashes. This base can be anything like:
+        1) The greatest ASCII value of a character in our 'pattern' or 'text'
+        2) The number of unique alphabets (26)
+        3) The number of possible ASCII values that cover all lower and upper case letters (127)
+        4) A large prime number
+
+      Hashes are then calculated as:
+        E.g:
+             pattern = "ab", text = "abcaecabe"
+             we assign every character values in the form: "a = 1, b = 2, ..."
+             we select base to be '26'
+             Hash for pattern (ab) = a * pow(26, 1) + b * pow(26, 0) ... powers depend on length of pattern
+                                   = 1 * 26 + 2 * 1 = 28 = pHash
+             Initial hash for substring of equal to pattern size:
+             Hash for text.substring(0, 2) = Hash for "ab" = 28
+             Here, as Hash for "ab" = 28 = pHash, we then check whether the characters match
+             - Hash for text.substring(1, 3) = Hash for "bc" = b * pow(26, 1) + c * pow(26, 0)
+                                            = 2 * 26 + 3 * 1 = 55
+               Here, as Hash for "bc" = 55 != pHash, thus, we do not check the characters.
+             This process is then repeated till full 'text' is covered.
+
+             However, in some cases even when the hash value is same, the characters won't match.
+             Such cases are called 'Spurious Hits'.
+
+        Getting subsequent hashes by updating current hash:
+        From above example, first we had Hash for "ab" = 1 * pow(26, 1) + 2 * pow(26, 0)
+                            and then Hash for "bc" = 2 * pow(26, 1) + 3 * pow(26, 0)
+        Thus to obtain the next hash for "bc" using "ac" what we did was:
+            Hash "bc" = (Hash "ac" - a * pow(26, 1)) * 26 + c * pow(26, 0)
+                      = (a * pow(26, 1) + b * pow(26, 0) - a * pow(26, 1)) * 26 + c * pow(26, 0)
+                      = (b * pow(26, 0) * 26) + c * pow(26, 0)
+                      = b * pow(26, 1) + c * pow(26, 0)
+                      = 2 * pow(26, 1) + 3 * pow(26, 0)
+        This is the way we update our hash in constant time.
+
+      Important Points:
+      - For minimizing collisions it is important to select an excellent hashing function
+      - The base value can be anything but should ideally be a large prime value for better hashing
+      - Instead of using value like '1, 2, 3...' for characters 'a, b, c...', we can use their ASCII values
+      - If the obtained hash is going above bounds (like overflowing out 32-bit integers) we can use the
+        modulo operator to fit it in range. However, this increases the chances of collisions.
+
+      (Everything is best explained in the video link provided above, with easy examples)
+
+
+
+
 
