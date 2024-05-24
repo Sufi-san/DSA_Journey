@@ -1,0 +1,48 @@
+# Problems
+
+!! The problems file for heaps might have been updated in the original repo. Check and Update here too if required !!
+
+## (First Finish all Easy and Medium (Revisits Included), Then Move to Hard)
+## (Revisited) indicates whether the question has been revisited and documented if needed. If solution statement is documented, it will be available in 'Solutions' text file.
+## (*) mark good problems to add in 'Solutions' file and the problem deserves more revisits.
+
+## GFG Questions List: https://www.geeksforgeeks.org/top-50-problems-on-hash-data-structure-asked-in-sde-interviews/
+
+Warm-up:
+https://cses.fi/problemset/task/1621
+https://leetcode.com/problems/two-sum/
+https://leetcode.com/problems/single-number/
+https://leetcode.com/problems/contains-duplicate/
+https://leetcode.com/problems/contains-duplicate-ii/
+https://leetcode.com/problems/first-unique-character-in-a-string
+https://leetcode.com/problems/intersection-of-two-arrays/
+https://leetcode.com/problems/find-the-difference/
+https://leetcode.com/problems/intersection-of-two-arrays-ii/
+https://leetcode.com/problems/longest-palindrome/
+
+Practice Questions:
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+https://leetcode.com/problems/4sum/
+https://leetcode.com/problems/valid-anagram/
+https://leetcode.com/problems/group-anagrams/
+https://leetcode.com/problems/word-pattern/
+https://leetcode.com/problems/repeated-dna-sequences/
+https://leetcode.com/problems/top-k-frequent-elements/
+https://leetcode.com/problems/find-common-characters/
+https://leetcode.com/problems/find-all-anagrams-in-a-string/
+https://leetcode.com/problems/number-of-boomerangs/
+https://leetcode.com/problems/sort-characters-by-frequency/
+https://leetcode.com/problems/most-frequent-subtree-sum/
+https://leetcode.com/problems/contiguous-array/
+https://leetcode.com/problems/jewels-and-stones/
+https://leetcode.com/problems/uncommon-words-from-two-sentences/
+https://leetcode.com/problems/maximum-number-of-balloons/
+https://leetcode.com/problems/kth-missing-positive-number/
+https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/
+
+Extra Questions:
+https://leetcode.com/problems/powerful-integers/
+https://leetcode.com/problems/bulls-and-cows/
+https://leetcode.com/problems/brick-wall/
+https://cses.fi/problemset/task/1084
+https://cses.fi/problemset/task/1091

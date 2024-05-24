@@ -74,13 +74,16 @@ public class QuickSort {
             /*
                 while(i < j) {
                     while(arr[i] < pivot) i++;
-                    while(arr[j] > pivot) j++;
+                    while(arr[j] > pivot) j--;
+                    if(arr[i] == arr[j]) { // This if-statement handles duplicate values
+                        if(i < j) j--; // If i == j then decreasing the 'j' will mess up the range
+                        continue;
+                    }
                     swap(arr, i, j);
                 }
                 helper(arr, start, i - 1);
                 helper(arr, i + 1, end);
              */
-        // But it will not work when there are duplicate values inside the search space
         while(i <= j) {
             while((int)arr[i] < (int)pivot) i++;
             while((int)arr[j] > (int)pivot) j--;

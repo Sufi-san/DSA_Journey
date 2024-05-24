@@ -1,0 +1,209 @@
+Q. What is the difference between Simple Uniform Hashing and Universal Hashing.
+   Also which one of them is more closely related to Chaining?
+->
+    The key difference between Simple Uniform Hashing and Universal Hashing lies in their approach to collisions and
+    the guarantees they provide:
+
+    Simple Uniform Hashing:
+
+        Concept: It's a basic hashing approach where a single hash function is used to map keys to hash table slots.
+
+        Collision Handling: Relies on a collision resolution technique like chaining (separate chaining) or linear
+        probing to handle situations where multiple keys map to the same slot.
+        Collision Probability: Doesn't provide any theoretical guarantees about the probability of collisions. The
+        collision rate depends on the specific hash function chosen and the distribution of the input data.
+
+    Universal Hashing:
+
+        Concept: It focuses on selecting a hash function from a family of universal hash functions. These families
+        have a specific mathematical property that ensures a low expected number of collisions, regardless of the
+        input data distribution.
+
+        Collision Handling: Doesn't dictate a specific collision resolution technique. You can still use chaining
+        or linear probing within the hash table along with a universal hash function.
+
+        Collision Probability: Provides strong theoretical guarantees. For any two distinct keys, the probability
+        of them colliding is always bounded by a small constant value (ideally close to 1/m, where m is the hash
+        table size). This makes it more resilient to adversarial attacks that exploit collisions.
+
+    Relationship to Chaining:
+
+        Chaining (Separate Chaining): This is a collision resolution technique used within a hash table. It creates
+        linked lists for each slot in the hash table, and collided elements are stored in the same linked list.
+
+        Simple Uniform Hashing: Can be used with chaining. In fact, chaining is a common way to handle collisions
+        in simple uniform hashing.
+
+        Universal Hashing: Doesn't directly implement chaining, but it can be used in conjunction with chaining
+        within the hash table. The focus of universal hashing is on selecting a good hash function from a family with specific collision probability properties, not necessarily on the specific collision resolution technique.
+
+Q. So, Universal Hashing is not restricted to just a single formula but the earlier formula I provided that is:
+
+   h(k) = ((a * k + b) % p) % m
+   k: The key value being hashed.
+   a and b: Random numbers chosen from a specific range (as mentioned).
+   p: A large prime number.
+   m: The size of the hash table.
+
+   Is just one of those formulas of universal hash functions family.
+->
+    You're absolutely right! The formula you provided, h(k) = ((a * k + b) % p) % m, is indeed one example of a
+    universal hash function family. Here's a breakdown of your questions:
+
+    Universal Hash Function Families:
+
+        - Universal hashing doesn't rely on a single hash function. Instead, it focuses on selecting a hash function
+        from a family of functions with specific mathematical properties.
+        - The key property is that any two distinct keys have a low probability (ideally close to 1/m, where m is
+        the table size) of colliding (hashing to the same slot). This ensures a predictable and low expected number
+        of collisions regardless of the input data distribution.
+
+Q. In chaining when we are assuming the load factor, is it necessary that a particular chain will always contain
+   that many elements in accordance with the load factor?
+
+   Like if I have 100 keys and 10 table slots, the load factor would be 10.
+   But is it necessary that every slot has just a chained list of size 10 accurately?
+
+   If no, then how is the problem resolved? Do we always ensure that these chain consist of no more than the
+   required load?
+->
+    You're absolutely right! In chaining for hash tables, the load factor is an average measure of the number of
+    elements per slot. It doesn't guarantee that every single slot will have exactly the same number of elements.
+    Here's a breakdown of the points you raised:
+
+    Load Factor and Chain Length:
+
+        The load factor (λ) is calculated as the number of elements (n) divided by the table size (m). (λ = n / m)
+        It represents the average number of elements expected per slot in the hash table.
+        In your example, with 100 keys and 10 slots (m), the load factor is 10 (λ = 100 / 10). This doesn't mean
+        every slot will have exactly 10 elements.
+
+    Uneven Distribution:
+
+        Due to collisions, some slots might have more elements than others in their linked lists. This is a natural
+        consequence of the hashing process.
+        The key is to ensure the load factor stays within reasonable bounds (typically below 0.7 or 0.8) to avoid
+        excessive chain lengths that significantly impact performance.
+
+    Resolving Uneven Distribution:
+
+        Chaining itself doesn't directly enforce a maximum chain length or redistribute elements. It simply provides
+        a mechanism to store collided elements in linked lists.
+        ** Dynamic resizing: A common approach is to dynamically resize the hash table when the load factor exceeds a
+        certain threshold. Doubling the table size is a frequent strategy. This helps distribute elements more
+        evenly across the larger table, reducing the average chain length.
+
+    Retrieval with Chaining:
+
+        During retrieval:
+            You calculate the hash index for the key you're searching for.
+            You traverse the linked list at that specific slot, comparing elements with your search key.
+            If a match is found, you return the element.
+            If the end of the linked list is reached without a match, the key is not present in the hash table.
+        There's no linear probing involved within a single slot during retrieval. You simply traverse the linked
+        list associated with the calculated hash index.
+
+    Key Points:
+
+        Chaining provides flexibility for handling collisions but relies on a good hash function to minimize
+        extremely long linked lists.
+        Load factor management is crucial. Resizing the hash table when necessary helps maintain efficiency.
+        Retrieval involves traversing the linked list at the calculated hash index.
+
+
+Q. When the load factor is exceeded for a particular slot while chaining, then while doubling the table size,
+  do we again perform hashing with the new increased table size on each element of the existing slot linked list
+  whose load factor went over the limit? Also, are the other slot linked lists also affected when the size is
+  doubled due to the act of recalculation of slot index for their keys?
+->
+   You're exactly right on both points! When the load factor is exceeded for a particular slot in chaining and
+   the table size is doubled, here's what happens:
+
+       Rehashing Existing Elements: Each element from the overloaded slot's linked list is re-hashed using the
+       new, larger table size. This is because the slot indices are now based on the doubled table size, and the
+       original hash values might not map to the same slots anymore.
+       Reinsertion: The re-hashed elements are then inserted into the new, larger hash table. This process
+       ensures a more even distribution of elements across the increased number of slots and can potentially
+       reduce the average chain length.
+
+   Impact on Other Slots:
+
+       Potentially Affected: While the primary focus is on rehashing elements from the overloaded slot, other
+       slots might also be indirectly affected.
+       Reason: Doubling the table size changes the modulo operation used for calculating hash indices. This
+       means some elements from other slots might also have their hash indices change, potentially leading to them
+       being placed in different slots in the new table.
+
+   Rehashing Other Slots (Optional):
+
+       In some implementations, especially for very high load factors, all elements in the hash table might
+       be re-hashed and reinserted into the new table. This ensures a complete redistribution and can further improve
+       performance.
+       However, rehashing all elements can be more computationally expensive. The decision of whether to rehash
+       only the overloaded slot or all elements depends on the specific implementation and performance trade-offs.
+
+   Retrieval After Resizing:
+
+       After resizing and rehashing, retrieval operations still follow the same principle.
+       The search key is hashed using the new table size, and the corresponding slot's linked list is traversed
+        for a match.
+
+   Key Points:
+
+       Resizing involves rehashing and reinserting elements from the overloaded slot(s) using the new table size.
+       Other slots might be indirectly affected due to the change in modulo operation for hash indices.
+       Rehashing all elements can be an option but might be less efficient for moderate load factors.
+       Retrieval adapts to the new table size by using the updated hash index for searching within the linked
+       list.
+
+   By dynamically resizing the hash table and redistributing elements, chaining can maintain an average constant
+   time complexity for insertions and deletions even with collisions.
+
+
+Q. During the chaining process for HashMap collisions, we make use of Linked List in each of the table slots.
+
+   Suppose I use a key to get an item from the map.
+   The hash of the key will not point to an index inside the table.
+   We will now access the linked list at that location in the table as per the index.
+   Now when we traverse the linked list , is it better for the Linked List node to contain the 'key' object
+   itself for matching or the hashcode of the key ?
+->
+    In a HashMap with chaining, it's better for the Linked List node in the collision chain to contain the key
+    object itself for matching, not just the hashcode. Here's why:
+
+    Collision Resolution and Matching:
+
+        Chaining is a collision resolution technique used in HashMaps. When multiple keys map to the same slot
+        (bucket) due to the same hash code, they are stored in a linked list attached to that slot.
+        To retrieve an item using a key, you calculate the hash code and then access the linked list at the
+        corresponding slot.
+
+    Matching with Key Object:
+
+        While you could compare hash codes during the linked list traversal, it's not ideal.
+        Here's why:
+            Hash Codes Might Collide: Even though the initial hash codes were the same, there's a small
+            chance that different keys might have the same hash code. Just because two keys have the same
+            hash code doesn't guarantee they are equal.
+            Correctness: Relying solely on hash code comparisons could lead to retrieving the wrong element
+            if there's a collision within the linked list.
+
+    Matching with Key Object:
+
+        By storing the key object itself in the linked list node, you perform the actual object equality
+        check using the equals() method. This ensures you find the exact object you're looking for, even if
+        there are collisions in hash codes.
+
+    Performance Considerations:
+
+        Storing the entire key object might seem less space-efficient compared to just the hash code.
+        However, the performance gain from correct matching using equals() typically outweighs the slight
+        space overhead.
+        Modern hash tables are optimized for memory usage, and the additional space for the key object
+        is usually negligible compared to the overall data being stored.
+
+    In essence:
+
+    While hash codes play a role in directing you to the correct linked list during collision resolution,
+    using the key object itself for matching within the linked list ensures you retrieve the intended
+    element and avoids potential errors due to hash code collisions.

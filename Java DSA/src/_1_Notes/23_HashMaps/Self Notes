@@ -1,0 +1,214 @@
+
+Why Use HashMaps?
+    To retrieve required objects in constant time. O(1)
+
+How it works (on the surface)?
+    Stores key-value pairs in a tabular structure.
+    When a key is provided to the HashMap, it returns the corresponding value from the table.
+
+Real-World Implementations:
+    Compilers, Interpreters -> To point names to variables
+    Network Routers -> Routing IP Addresses
+    Virtual to Physical Memory Conversions
+    String searching -> grep command
+
+How it works Internally?
+    When added to the HashMap, any type of key input (object) will be converted to a unique number using some
+    formula.
+    When we again search for this same object, the HashMap will use the same formula to turn that object into
+    a number. If this object is the same as the one added previously, the unique number will also be the same.
+    Suppose we are storing elements internally, in an Object array and the unique numbers are actually the
+    indices for objects to be stored in the array.
+    When the unique number of the same object is encountered again as an index, the array index this time will
+    not contain null element, as an Object would have already been added at that place.
+    And if it is not null, then HashMap will simply return that Object in constant time using the unique index
+    as accessing array elements using indices takes constant time O(1).
+    Thus, HashMap can be considered as a table, containing unique keys to identify and retrieve elements in
+    constant time.
+
+    - Hash Code: (The unique number)
+    'Hash Code' function (the formula) will be used to convert an 'Object' input into a Hash Code which is a
+    positive integer. This is the unique 'key' that we will use for accessing table values.
+    The generated hash code however, can be very large.
+    To reduce the size we use 'Hashing'.
+
+    - Hashing & Collisions: (Fitting unique number in constant size representation)
+    This technique will be used to reduce Hash Codes to a particular size.
+    To reduce the size of the generated Hash Code we can:
+    Eg: Take mod10 of the number -
+        3578, 3989, 1893 ->   8, 9, 3
+        However, if we have another value: 3988 then 3988 % 10 -> 8
+        Thus, 3988 collides with 3578 when we take modulo 10
+    This phenomenon is called as 'Collision' and there are ways to resolve it.
+
+    - Collision Handling:
+      a) Chaining - (When load-factor is very high, uncommon method)
+         At every element index in the array, there is a linked list.
+         If a collision occurs for a particular index, we simply create a new node at the end and add the new
+         element inside that new end node.
+         When looking up the index we again traverse the linked list and compare the linked list elements
+         with our current search object, if a match is found we return the value.
+
+         However, in a possible worst case, if the modulo of every hash code (possibly with array size as divisor)
+         is the same index number then we have to perform a linear search on the linked list that will take O(N)
+         time. Eg: Array size is 10, and we get inputs like 3, 13, 23, 33, ... (all load on index 3)
+
+         This worst case is further handled by making assumptions about the complexity using the 'load-factor' in
+         'Simple Uniform Hashing' where any given element is equally likely to hash into any of the 'm' slots.
+
+         Load Factor (alpha) -
+            alpha = n / m, where n -> No. of keys to map in the table
+                                 m -> Size of the table.
+            Also, the size of 'alpha' ideally should not be greater than '1' and for that the size of table 'm'
+            should always be greater than 'n' (m >= n).
+            This is because, if 'n < m' then we know from the start that collision is inevitable which we
+            want to avoid.
+
+            The complexity of searching thus becomes O(1 + alpha) and if alpha is constant (amortized) then
+            we can say:
+            O(1 + alpha) -> O(1), which is constant time searching.
+
+            There can be dynamic key insertions in the table which will affect the size 'm' as well as the
+            hashing function that maps the keys to table indices. How this affects the table and hashing and
+            how it is handled is discussed later below...
+
+         The methods to create hashing functions using 'Simple Uniform Hashing' include:
+
+         i) Division Method: (Faster)
+            h(k) = k % m
+            where, k is the hash code
+                   m is the size of the array (inefficient)
+                OR m is a large prime number (not too close to powers of 2 or 10 as they are common)
+
+         ii) Multiplication Method: (Slower but 'm' can be any value)
+            h(k) = ((a * k) % pow(2, w)) >> (w - r)
+            where, k is the hash code
+                   a is random number
+                   w is number of bits in k
+                   r = log2(m)
+                   '>>' is the right shift operator
+
+         There is also a formula of 'Universal Hashing' where a large prime number and 2 random numbers are used
+         and it gives us only 0.1 % (or 1 / size) probability of collision and it can be used in conjunction with
+         Chaining for further improvement:
+            h(k) = ((a * k + b) % p) % m
+            where a ∈ {1, 2, ..., p-1} and b ∈ {0, 1, ..., p-1}, where p is prime and larger than the largest key.
+         This is just one of the candidate hash functions that meet the criteria set by 'Universal Hashing' and
+         are used by Hash Functions.
+
+         (More about Simple Uniform Hashing and Universal Hashing in 'Crucial Q&A')
+
+         The size 'm' of the table -
+            Given a finite space table and certain number of keys, if we want to apply chaining we also need to
+            determine the size 'm' of the table. (Which is later used in formulas for hashing)
+
+            The best practice is -> m = Theta(n), where 'n' is the number of keys, thus we take the average of the
+                                    number of keys as table size.
+
+            If 'm' is too big than space is wasted and if 'm' is small then the table search will be slow.
+            Thus, idea is to start small, and then grow.
+            We can increase table size by doubling it each time the table is small. (getting amortized linear time
+            complexity, similar to internal implementation concept of ArrayLists)
+            Thus, as inserting 'n' elements will take about O(N) time then for single element insertion we take
+            on average O(1) time.
+
+      b) Open Addressing - (Commonly used in algorithms)
+         Only one item per slot. (No Chaining)
+         Thus, table size always has to be greater than or equal to number of items/keys.
+
+         Here, we use the 'probing' method.
+         If certain index is already occupied, we look for another location which will be somehow linked to the
+         current location. This process is continued till an empty location is found and the element is then added.
+         This is known as 'probing'.
+         When trying to delete an element while using this method, since any location can serve as a link to other
+         occupied locations, we just add some kind of 'delete' flag at the current location to be deleted. In this
+         way, even though no element exists at that location, the link to other ones in its probing path is not
+         severed.
+
+         Two types of probing methods:
+
+         i) Linear Probing - (Most common)
+            The next index to be jumped at is calculated as:
+                h(k, i) = (h(k) + i) % m
+                where, h(k) is the generated hash code using hash function
+                       i is the current location index
+                       m is the size of the array/table/structure
+                       h(k, i) gives index 'i' of next location
+
+            Problem: 'Primary Clustering', where a cluster of occupied contiguous memory is formed and the
+            other locations inside the memory are not fully utilized. (less spread)
+
+         ii) Quadratic Probing:
+            Quadratic probing is attempt to fix this ... instead of reprobing linearly, QP "jumps" around
+             the table according to a quadratic function of the probe, for example:
+
+                h(k, i) = (h(k) + c1 * i + c2 * pow(i, 2)) % m,
+                where c1 and c2 are constants.
+
+            Problem: 'Secondary Clustering', although primary clusters across sequential runs of table
+            positions don't occur, two keys with the same h may still have the same probe sequence,
+            creating clusters that are broken across the same sequence of "jumps".
+
+         iii) Double Hashing:
+            h(k, i) = (h1(k) + h2(k) * i) % m,
+            where, the definition of repeating symbols is same as above
+                   h1(k) is a generated hash code
+                   h2(k) must be relatively prime to 'm' (relatively prime means they have no factors in common
+                   other than 1) for all 'k' to guarantee that the probe sequence is a full permutation of
+                   ⟨0, 1, ... m-1⟩.
+                   Two approaches:
+                       - Choose m to be a power of 2 and h2 to always produce an odd number > 1.
+                       - Let m be prime and have 1 ≤ h2(k) < m.
+                   There are Θ(m ^ 2) different probe sequences, since each possible combination of h1(k) and h2(k)
+                   gives a different probe sequence. This is an improvement over linear or quadratic hashing.
+
+      - Use Open Addressing:
+         Better cache performance (no pointers used)
+
+      - Use Chaining:
+         Less sensitive to hash functions
+
+    - Common use of hash:
+        In Digital Signatures. (Integrity)
+        For matching entered password's hashes with pre-existing password hashes in database. (Authentication)
+
+    - Hash values are not stored in a sorted order, the order is random.
+
+Some important Java's Implementation of Hashes:
+
+    ...Set -> (Implements the 'Set' interface)
+    ...Map -> (Implements the 'Map' interface)
+
+    1) HashSet:
+    A set that stores only unique values. Can be used to check for earlier instances of particular element or get
+    all unique values from a data structure.
+    The comparison and instance check is done through the matching of hash values.
+
+    2) HashMap: (Most Commonly Used)
+    To successfully store and retrieve objects from a HashMap, the objects used as keys must implement
+    the .hashCode method and the .equals method.
+    Stores <Key, Value> pairs where we provide any object that is treated as key and gets converted to a
+    We can then retrieve the value, delete the key or update the value inside the HashMap.
+    HashMap allows one null key and any number of null values.
+    It is non-synchronized (no thread safety).
+
+
+    3) HashTable: (Extends the 'Dictionary' class)
+    To successfully store and retrieve objects from a Hashtable, the objects used as keys must implement
+    the .hashCode method and the .equals method.
+    Generated HashCode from key is then used to store the provided value in the table after hashing.
+    We can then retrieve the value, delete the key or update the value inside the Hashtable.
+    Does not allow any null key and also doesn't allow any null values.
+    It is synchronized (has thread safety).
+
+    4) TreeMap:
+    Though the operations and features mostly stay the same, the internal implementation is different.
+    It is used to store the items in the table in a 'sorted' order which isn't the case for classic
+    HashMaps.
+
+    Others (can be understood from Docs): SortedMap, LinkedHashMap, LinkedHashSet, ConcurrentHashMap....
+
+
+The Rabin Karp Algorithm for String Matching (based on Hashing):
+
+
