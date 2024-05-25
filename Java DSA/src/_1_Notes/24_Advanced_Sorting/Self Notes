@@ -1,0 +1,134 @@
+Count Sort:
+
+    - Works best when small numbers are involved (better than comparison algorithms).
+    - It is a stable sorting algorithm.
+    - It takes extra space (size of frequency array), so it is not an in-place sorting algorithm.
+    - Inefficient for sorting large numbers.
+    - Does not require comparison among various different elements.
+    - Does not work when sequence has negative values.
+
+    - Using Frequency Array:
+        First we pass through the unsorted sequence to get maximum element
+        Second we create a 'frequency array' of size = maximum element + 1
+        We again pass through the unsorted sequence, but this time using each element/number as an index, incrementing
+        the corresponding number (which is 0 by default) on that index inside the frequency array.
+        Next we either create a new array or update the original sequence array to create a sorted sequence
+        We use 2 pointers, first pointer will start from 0th index of target array, and second pointer will start
+        from 0th index of the frequency array.
+        For every index in the frequency array, while the element on that index is not zero, we keep adding the frequency
+        index pointer's value to the current index slot of the target array and incrementing the target array pointer.
+        While doing this each time, the frequency array element is updated by decrementing it by 1.
+        Once, frequency array element becomes zero, we increment the frequency array pointer and this process is repeated
+        till the end of the frequency array is reached and made zero.
+
+    - Using HashMap:
+        The count of unsorted elements will be stored in the HashMap where the element will be the key, and its count
+        will be the value. While iterating over the sequence each time we check whether HashMap already has that key
+        and if it exists we increment that key's value by 1. If not present, we add it with initial value '1'.
+        To create the sorted sequence, the two-pointer method similar to frequency array method will be used.
+        However, as keys in HashMaps are unsorted, our pointer will go from 0 to maximum element found in the unsorted
+        sequence. This pointer number will be looked up in the HashMap and its count will be retrieved.
+        While the count is not zero, we keep adding the pointer number into the sorted array.
+        After this, pointer is again incremented and looked up in the HashMap.
+        This process is then repeated till the point in iteration where value of pointer exceeds maximum element is
+        reached.
+
+    To make it slightly more efficient, we can also find the minimum element, and start from that as initial index of
+    frequency array, instead of always starting from 0.
+
+    - Time Complexity:
+        Finding maximum number in the sequence and updating frequency array will take O(N) time, where 'N' will
+        be the size of the sequence.
+        Going through the frequency array for sorting the sequence will take O(M) time, where 'M' will be the size
+        of the frequency array. (Will happen in one-pass)
+        Therefore, overall -
+            Time Complexity = O(N + M)
+            Space Complexity = O(N + M)
+
+
+
+Radix Sort:
+
+    - An extension of basic Count Sort, for better handling of large numbers.
+    - Reduces required space, by considering individual digits instead the whole numeric value.
+    - Makes use of the base system 'units (1)', 'tens (10)', 'hundreds (100)'....
+
+    - Working:
+        - Get the maximum element from the sequence and count its digits.
+        - The number of digits will determine the number of count sort iterations
+        - We create a List of Linked List. This list will at most hold 10 Linked Lists (Digits 0 to 9).
+        - At each iteration, we focus on a specific digit in the unsorted array elements.
+        - We start from units place and go up to whatever base the first digit is at (power of 10)
+        - To do get the correct digit in each iteration:
+            Divisor = pow(10, i)
+            Mod = Divisor * 10
+            where, 'i' is the number of iteration, and 0 <= i < No. of digits in max number
+            And,
+            Required Digit = (Array Element) % Mod / Divisor
+            Eg: For, i = 2 we are targeting digit at 'hundred's' place, let Array Element = 5892
+                Thus, Divisor = pow(10, 2) = 100, Mod = Divisor * 10 = 100 * 10 = 1000
+                And,
+                Required Digits = (5892) % 1000 / 100 = 892 / 100 = 8 (Floored to integer)
+                Thus, we got '8' which was at the hundred's place in 5892.
+        - On these obtained digits in each iteration, we perform count sort in the same iteration,
+          the obtained digits are treated as indices which are used to select the appropriate
+          linked list from the list of linked lists.
+        - The whole numeric value (array element) is then placed into the linked list based on the
+          index value provided by its selected digit.
+        - Now, similar to count sort, we go from 0th linked list to 9th linked list, checking whether they
+          have elements, if they do then while the list is not empty we keep removing elements from its
+          'head' and inserting into the array.
+        - The above actions will sort the array according to the digit with certain base (units, tens, ...) our
+          focus was at in the iteration.
+        - This process is repeated till all iterations are completed and in the last iteration the numbers are
+          sorted based on their very first digits at given base position (Highest priority base). (If digits do
+          not go up to selected base in any iteration, then the digit is taken as '0' and those elements will be
+          placed in 0th linked list)
+
+
+        Approach without using List of Linked Lists:
+            - The part of extracting the digits depending upon current base we are focused on stays the same.
+            - Now, we just use a normal count array inside which we will update counts on indices based on the
+              obtained digits from original array elements.
+            - We take a cumulative sum throughout the count array: count[i] = count[i] + count[i - 1]
+            - Next, we create an output array of same size to that of the original array.
+            - We iterate over the original array and create its sorted version inside the output array.
+            - This will be done by again finding the digit for particular array element, using it as index for
+              count array.
+            - Count array, due to cumulative sum will provide an exact position to situate the element inside the
+              output array. Because of the cumulative sum, we know how many elements will appear before the current
+              element of original array and that provides us the exact position after sorting. But we will need to
+              remove 1 from that index, as our arrays are 0-indexed.
+            - After placing the element in output array, we decrement element at chosen count index (for accurately
+              situating future elements if any)
+            - IMPORTANT:
+                - We will traverse the original array from END to START this time.
+                Problem with Forward Traversal:
+                    If you traverse the original array from index 0 to n-1 (forward) during placement,
+                    elements with the same significant digit might overwrite each other in the output array.
+                    This can lead to elements originally in the correct order within the same significant digit
+                    group being reversed in the final sorted array.
+                Solution - Reverse Traversal: (STABLE SORTING)
+                    By traversing arr1 in reverse order (n-1 to 0) during placement, you ensure that elements
+                    with the same significant digit are placed in the output array in the same order they appeared
+                    in the original array.
+                    This is because the counts array keeps track of the available slots for each digit value.
+                    When a number is encountered during reverse traversal, it finds its correct position in the
+                    output array based on the corresponding counts value, preserving the original order within
+                    the same significant digit group.
+            - The output array's result will be now copied into the original array.
+            - This process will repeat for different powers of 10 till outer loop iteration finished according to
+              digits inside the max element.
+
+        Stable Sorting and Reverse Traversal:
+
+            Radix sort is a stable sorting algorithm, meaning it preserves the original order of elements with
+            equal significant digits in the final sorted output.
+            This stability is achieved through the combination of counting and reverse traversal during the
+            placement phase.
+
+        Time Complexity: O(digits * (n + base))
+        Space Complexity: O(n + k)
+             n is the number of elements to be sorted.
+             k is the range of possible values or the size of the base used for sorting
+             (e.g., the number of digits if sorting integers).
