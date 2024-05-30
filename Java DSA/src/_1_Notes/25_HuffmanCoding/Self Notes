@@ -1,0 +1,61 @@
+Another Amazing Learning Resource: https://youtu.be/co4_ahEDCho?si=dfpQAu0d1YYs4YFX
+
+Compression is used to reduce the file size by eliminating redundancies.
+There are 2 kinds of compression techniques:
+i) Lossy Compression Techniques (Irreversible, Some Data is lost)
+ii)  Lossless Compression Techniques (Reversible, No Data is lost)
+
+Huffman Coding is a Lossless Compression technique. It changes the 'encoding' format for data.
+It is used in many real-world compression requirements like in zip files, images, fax etc.
+
+Concept:
+    All digital information at its core, is in the form of 0s and 1s (bits).
+    Eg: "aabcdag"
+        Each character takes 2 bytes or 16 bits.
+        So total size will be string size * 16 = 7 * 16 = 112 bits
+    We need to reduce the number of bits it takes to store such information.
+
+Working:
+    - We Use 2 Hashmaps, one Encoder and the other Decoder.
+    - Encoder takes data and converts it to bytes while Decoder does the opposite.
+    - We have to make sure that data elements with more frequency are assigned a shorter bit code.
+      This reduces the overall length of the encoded output.
+
+    - Steps: (Encoding)
+      i) Pass the data (aka feeder)
+     ii) Make a frequency map (an array with defined indices for data elements, which stores there appearance count)
+    iii) For every key in frequency map, create a Node and insert it in a min Heap (Priority Queue)
+     iv) Node will have data and an integer (cost)
+      v) We remove 2 nodes from heap, create a new node and assign the first removed node as the new node's left child
+         and second removed node as its right child. This node will also have a cost which will be sum of its children's
+         costs and it will then be added to the heap.
+         The order of children can be interchanged (first is right child and second is left child) but, we will later
+         need to make changes accordingly
+     vi) This process is repeated till at any point we encounter an empty heap.
+    vii) Now, we use the final node obtained from the Heap.
+         Treating this node as root, perform DFS on the formed tree.
+   viii) For every left traversal we append '0' to the current code state and for every right traversal we append '1'
+         or vice versa based on the order of children.
+     ix) At the leaf node, we store data at leaf node as the key and the current state of the code as its value in the
+         Encoder HashMap while we do the opposite in the Decoder HashMap.
+      x) Next we finally encode the data by traversing through each Data element and replacing it with selected code
+         as per the Encoder HashMap.
+
+    - Steps: (Decoding)
+      The tree formed for assigning codes to the characters, makes sure that no codes have matching 'prefix'.
+      Using this property we can simply decode the compressed bits to the original data elements.
+      i) Traverse through the compressed bits bit by bit.
+     ii) Maintain a string of the order of bits encountered and a collection of original data elements.
+    iii) If the current state of order of bits string exists as a key in the decoder,
+            get its value and add it to collection of original data elements
+            reset the state of order of bits string to empty
+     iv) After the compressed bit sequence is fully traversed, return the collection of original data elements
+         obtained.
+
+Space Complexity: O(N)
+Time Complexity: O(N * logN) -> Taking into account creation and use of Huffman Tree and Heap.
+
+Note:
+A bitset can be used instead of Strings to represent the encoded binary bits.
+It is an array of boolean values, and as booleans take only 1 bit space, it is more optimal.
+Similar to the Sieve of Eratosthenes used for efficiently finding prime numbers in a range.
