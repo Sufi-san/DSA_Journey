@@ -167,6 +167,8 @@ Q.16) Kth Smallest Element in a BST
 
     Brute force approach would be to perform an In-Order traversal on the BST to get a strictly increasing list
     of node values and then return 'k - 1'th element from the list (as 'k' is 1-indexed).
+    We can also use a 'Heap' instead of a list, which will be a minimum Heap and we will remove 'k' items from
+    that heap. The retrieved 'kth' item will be the required node value.
 
     Another approach is to set the value as a global variable, perform DFS and when suitable rank is found, then
     update the variable with that node's value.
@@ -319,5 +321,17 @@ Q.23) Path Exists in Binary Tree from Root to Leaf (Miscellaneous)
     Lastly:
         At this point we know current node's value is a match so we return calls for further checking
         Path can be found in: Left child check OR Right child check.
+
+
+Q.24) Vertical Order Traversal (leetcode)
+
+Q.25) Word Ladder (leetcode)
+
+Q.26) Two Sum IV (leetcode)
+
+Q.27) Convert Binary Tree to Doubly Linked List (Geeks for Geeks)
+
+Q.28) Recover Binary Search Tree (leetcode)
+
 
 
