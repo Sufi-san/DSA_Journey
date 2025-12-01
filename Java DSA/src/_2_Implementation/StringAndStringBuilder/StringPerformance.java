@@ -19,7 +19,7 @@ public class StringPerformance {
         are not used by any reference variable and just use extra memory for no reason.
 
         Though there exists 'Garbage Collector' to remove these unused objects, it is better if such
-        useless objects are not at all formed from the get go.
+        useless objects are not at all formed from the get-go.
         To do this we need such a datatype/class that allows us to edit the same object at which the reference
         variable is pointing instead of creating a new object.
 

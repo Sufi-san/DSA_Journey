@@ -35,7 +35,7 @@ In this case, the fractional part is .109
 
 Boolean literals are simple. There are only two logical values that a boolean value can have, true and false.
 The values of true and false do not convert into any numerical representation.
-The true literal in Java does not equal 1, nor does the false literal equal 0. (Unlike C)
+The true literal in Java does not equal 1, nor does the false literal equal 0. (Unlike C or JavaScript)
 
 As you may know, in some other languages, including C/C++, strings are implemented as arrays of characters.
 However, this is not the case in Java. Strings are actually object types.

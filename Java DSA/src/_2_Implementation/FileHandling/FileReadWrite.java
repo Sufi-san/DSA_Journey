@@ -12,6 +12,8 @@ public class FileReadWrite {
             Note:
             We can specify all the resources we have opened/used by initializing all the objects using the
             resources, in the '()' circle brackets of the try block.
+            This is done to make use of try-with-resources statement that automatically closes all the resources
+            in case of exceptions or when the work is completed.
             The later statements that handle the instructions and the process using these objects can then
             be separately entered into the '{}' curly bracket scope of the try block.
         */
@@ -91,7 +93,7 @@ public class FileReadWrite {
             as the required encoding and create a new String object that contains all the file content
          */
             byte[] arr = fis.readAllBytes();
-            // for(byte b: arr) System.out.print((char)b);
+            // for(byte b: arr) System.out.print((char)b); // might not be accurate due to encoding & surrogate pairs
             System.out.println(new String(arr, UTF_8) + "\n\n");
 
             // Using ByteStream -> OutputStream -> FileOutputStream to create and write to a new file
@@ -120,7 +122,7 @@ public class FileReadWrite {
                 The FileReader class extends InputStreamReader class and actually makes use of this
                 property for reading data, storing and displaying data in character format.
             Methods:
-            i) read() -> reads a single character (will return an integer that will be ASCII for that character)
+            i) read() -> reads a single character (will return an integer that will be code for that character)
             ii) ready() -> tells whether stream is ready to be read.
 
             About BufferedReader: The best way to read from text files when paired with a FileReader object

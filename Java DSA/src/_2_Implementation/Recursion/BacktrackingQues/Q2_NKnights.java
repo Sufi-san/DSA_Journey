@@ -15,7 +15,7 @@ public class Q2_NKnights {
 
     static int retNumWays(boolean[][] board, int r, int c, int knightsLeft) {
         if(knightsLeft == 0) {
-            display(board);
+            // display(board);
             return 1;
         }
         if(r == board.length) return 0;

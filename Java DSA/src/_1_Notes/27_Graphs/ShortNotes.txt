@@ -1,0 +1,123 @@
+# Followed Striver's Graph playlist (Time limited version)
+
+Basic Elements:
+Nodes (Entities/Circles)
+Edges (Relationships or paths, can be weighted/unweighted)
+
+Types of Edges in Graphs:
+1) Undirected (edges with no direction, single edge highlights bidirectional connection)
+2) Directed (direction observed by arrowhead, needs separate directed arrows between 2 nodes to display bidirectional connection)
+
+All trees are graphs but, not all graphs are trees.
+Even a single node existing alone can be considered as a graph.
+
+Cycles in a graph:
+When connections between nodes form a recurring chain, the graph is said to contain cycles.
+When we start at a node and end up back on that same node while following a path, the cycle in the graph is confirmed.
+
+Degree of a graph node:
+For directed graphs:
+    - Indegree: Number of incoming edges
+    - Outdegree: Number of outgoing edges
+    - Total Degree: Indegree + Outdegree
+For undirected graphs: All connected edges
+
+Total degree of a graph with undirected edges: 2 * Number of edges
+
+Edge Weights:
+Costs, often numeric values associated with edges.
+Incurred when using the edge to travel to connected destination nodes in a path.
+If no weights are given, we mostly assume them as '1' (unit weight).
+
+Representing graphs:
+Instead of creating Graph Nodes and an actual graph network of those nodes we can use -
+1) Adjacency Matrix
+- Given 'N' nodes and 'M' Edges we create a 2D matrix of size N * N.
+- We add an extra row and column using if the graph nodes are 1-indexed in any scenario (N + 1) * (N + 1) to keep the
+index of our representation and the actual node indices in sync. These extra row/column will be filled with zeroes.
+- The cells in the remaining rows/columns indicate whether an edge exists between the row index node and the column index
+node. If it exists the cell is filled with 1 and with 0 if it does not. (Can use booleans for unweighted graphs)
+- For undirected graphs, if edge exists between A and B (A -> B) then an edge exists between B and A (B -> A)
+2) Adjacency Lists
+- We use a list of lists to highlight connections between nodes
+- Extra list can be added due to similar reasons mentioned for adjacency matrix
+- The nested list represents consists of other nodes that the row index node is connected to.
+- The main benefit of this method is that it does not always occupy N * N space and even in case of undirected graphs the
+maximum occupied space is 2 * N (Total degree of graph)
+
+For Weighted Graphs:
+- In adjacency matrix we replace '1' in case of connections with the corresponding edge weight instead
+- In adjacency list we tweak the data structure such that the nested list contain not just the node indices but 'pair'
+elements with the pair consisting of the node index and the edge weight for the edge to that node.
+
+Connected Components:
+- There can be scenario consisting a group of graphs with no edges between them. In such cases, based on assumptions and
+problem statements, even if the graphs are separate we consider them as separate components of a single graph.
+- These sub-graphs are known as 'Connected Components'. The nodes in these components are connected to each other directly
+or indirectly via a path of edges. However, they are not connected to 'external' nodes or nodes belonging to different
+sub-graphs.
+https://media.geeksforgeeks.org/wp-content/uploads/20220905132251/graph.jpg
+
+Traversing graphs with multiple connected components and cycles:
+- For any traversal algorithm we need to maintain a 'visited' array with indices going from 0 to N, where N is the number of nodes
+- This is necessary because there cannot exist a single method 'traversal(graphNode)' such that it can traverse through all nodes
+given a single node of the graph when the graph contains cycles or separate sub-graphs.
+- Thus, we linearly traverse through the visited array, and the nodes that are visited are marked as 'visited' so that we do not
+traverse through them again. This prevents the traversal from getting stuck in a loop.
+
+Traversal Techniques: (BFS & DFS)
+- Traversal techniques in Graphs consist of strategies that are similar to what is used for tree traversals.
+- There are however, slight differences due to cycles, connected components, different heads/roots...
+- For prevent loops due to cycles we use the 'visited' array to keep track of visited graph nodes during traversal
+- In graphs, the levels are determined by the order of nodes and the connections between them.
+- Unlike trees that have a fixed 'root' which is always at level zero that determines the node from which traversal starts,
+graph traversal can start from any node except scenarios where a fixed node is specified.
+- The levels are then determined as:
+    1) Starting node is always at Level 0
+    2) Nodes directly connected to current node have Level = Current Node's Level + 1
+- Thus, next node's to be traversed are determined by this level in both BFS and DFS techniques.
+
+Time & Space Complexity of traversals:
+1) Breadth-First Search (BFS)
+    Time Complexity: O(V+E)
+        Each vertex is visited and processed once.
+        Each edge is examined once (when traversing from a vertex to its neighbors).
+    Space Complexity: O(V)
+        For the queue, which stores at most all vertices in the worst case (e.g., a star graph where all neighbors of a central node are added to the queue).
+        For storing visited states (e.g., a boolean array or hash set).
+
+2) Depth-First Search (DFS) (Recursive)
+    Time Complexity: O(V+E)
+        Each vertex is visited and processed once.
+        Each edge is examined once (when traversing from a vertex to its neighbors).
+    Space Complexity: O(V)
+        For the recursion stack, which in the worst case (e.g., a skewed graph like a linked list) can go as deep as the number of vertices.
+        For storing visited states.
+
+3) Depth-First Search (DFS) (Iterative with Explicit Stack)
+    Time Complexity: O(V+E)
+        Each vertex is visited and processed once.
+        Each edge is examined once.
+    Space Complexity: O(V)
+        For the explicit stack, which in the worst case can store all vertices.
+        For storing visited states.
+
+
+Detecting Cycles in Undirected Graphs:
+1) Via BFS & DFS:
+- Detecting any node during traversal that has been previously visited and is not the recent neighbour (previous current node)
+of the current node.
+- One approach is to pass the recent neighbour (or direct predecessor) along with the current node to check whether the visited node is the
+recent neighbour or not.
+- When traversing the list of connected nodes for each node, if we find that more than one of those connected nodes
+(nodes except the recent neighbour) are visited (by maintaining a counter for number of visited nodes) we can say that a cycle exists.
+2) For Connected Components graph:
+- Can use the above approaches but while traversing a range from 0 to N for all nodes, at the top level, to ensure all connected components
+are traversed to detect the cycle in any of them.
+- The check will search will initiate only from those nodes that haven't been visited before because the connected component of which a
+visited node would be a part of, would have already been checked by previous traversals.
+- Problem link: https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
+(Solved with both BFS & DFS while considering connected component graphs as well)
+- The time and space complexity for cycle detection using BFS and DFS are generally the same.
+Both algorithms typically have a time complexity of O(V + E) and a space complexity of O(V), where V is the number of vertices and E is the
+number of edges in the graph.

@@ -2,34 +2,35 @@ package _2_Implementation.Patterns;
 
 public class Solved_Patterns {
     public static void main(String[] args) {
+        int n = 5;
         System.out.println("\nPattern 1:");
-        pattern1(5);
+        pattern1(n);
         System.out.println("\nPattern 2:");
-        pattern2(5);
+        pattern2(n);
         System.out.println("\nPattern 3:");
-        pattern3(5);
+        pattern3(n);
         System.out.println("\nPattern 4:");
-        pattern4(5);
+        pattern4(n);
         System.out.println("\nPattern 5:");
-        pattern5(5);
+        pattern5(n);
         System.out.println("\nPattern 5: (Loop combination)");
-        altPattern5(5);
+        altPattern5(n);
         System.out.println("\nPattern 6:");
-        pattern6(5);
+        pattern6(n);
         System.out.println("\nPattern 7:");
-        pattern7(5);
+        pattern7(n);
         System.out.println("\nPattern 8:");
-        pattern8(5);
+        pattern8(n);
         System.out.println("\nPattern 8: (Loop combination)");
-        altPattern8(5);
+        altPattern8(n);
         System.out.println("\nPattern 9:");
-        pattern9(4);
+        pattern9(n - 1);
         System.out.println("\nPattern 9: (Easy)");
-        altPattern9(4);
+        altPattern9(n - 1);
         System.out.println("\nPattern 10:");
-        pattern10(4);
+        pattern10(n - 1);
         System.out.println("\nPattern 10: (another approach)");
-        altPattern10(4);
+        altPattern10(n - 1);
     }
 
     static void pattern1(int n){
@@ -150,7 +151,7 @@ public class Solved_Patterns {
 
     static void altPattern8(int n){  // using multiple for loops, spaces are not counted but added while printing
         for(int i = 1; i <= n; i++){
-            for(int j = 1; j <= n - i; j++){ // n - i spaces, e.g: in first line spaces = n - 1 = 5 - 1 = 4
+            for(int j = 1; j <= n - i; j++){ // 'n - i' spaces, e.g: in first line spaces = n - 1 = 5 - 1 = 4
                 System.out.print(" ");
                 System.out.print(" "); // This extra space is added to all lines for i < n, for correct alignment
                 // It is common sense since for each line in the pattern,

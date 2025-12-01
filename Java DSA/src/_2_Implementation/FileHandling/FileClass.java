@@ -18,12 +18,13 @@ public class FileClass {
          */
         String newFileDir = "src/_2_Implementation/FileHandling/NewFile4.txt";
         File fo = new File(newFileDir);
-        if(fo.createNewFile()) readWriteToFile(newFileDir, fo);
-        else {
+
+        if(!fo.createNewFile()) {
             // fo.delete() will delete existing file if found and return true when successful
             if(fo.delete()) System.out.println("Found and deleted existing file.");
-            readWriteToFile(newFileDir, fo);
         }
+
+        readWriteToFile(newFileDir, fo);
     }
 
     static void readWriteToFile(String newFileDir, File fo) throws IOException {

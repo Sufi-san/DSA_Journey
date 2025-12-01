@@ -18,7 +18,7 @@ public class BasicArray {
 
         String[] arr = new String[5];
         System.out.println(arr[3]); // will print 'null'.
-        // for String arrays the default element is 'null'.
+        // for Strings or any Object type arrays the default element is 'null'.
         // null is a special literal, however, it cannot be used as a type for variables.
         // null also cannot be assigned to primitive data types such as int,float etc.
         // null can be compared to 'None' in Python.
@@ -30,7 +30,8 @@ public class BasicArray {
           // initialization of array, the actual object is being created in heap memory. (run time)
           // This is known as dynamic memory allocation
         Heap objects are not continuous, thus unlike C, allocation of memory completely depends on JVM.
-        Hence, internally array objects in java may not be continuous.
+        Hence, internally array objects in java may not be continuous. (references stored in heap object might point to
+        non-contiguous memory locations)
 
         Note:
         Primitives are directly stored in stack memory

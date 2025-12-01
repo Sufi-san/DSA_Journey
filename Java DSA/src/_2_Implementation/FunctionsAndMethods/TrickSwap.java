@@ -5,6 +5,8 @@ public class TrickSwap {
     public static void main(String[] args) {
         int a = 6, b = 9;
         a = trickSwap(b, b = a); // can be read as a = b, b = a.
+        // first value of 'b' is passed and then 'b' is assigned the value of 'a' and that new value is passed as the
+        // second argument after the value assignment
         System.out.printf("a = %d, b = %d",a ,b);
         // This method works because arguments are read from left to right in Java.
     }

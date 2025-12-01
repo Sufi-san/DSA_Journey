@@ -55,5 +55,7 @@ public class TwoDArrays {
             }
             System.out.println();  // for printing every row in new line
         }
+        System.out.println("Printing arr4 using .deepToString() method:");
+        System.out.println(Arrays.deepToString(arr4));
     }
 }
